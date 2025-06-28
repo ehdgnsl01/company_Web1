@@ -1,0 +1,16 @@
+import { initializeApp, getApps } from "firebase/app";
+import { getAuth } from "firebase/auth";
+
+const firebaseConfig = {
+  apiKey: process.env.NEXT_PUBLIC_FB_API_KEY!,
+  authDomain: process.env.NEXT_PUBLIC_FB_AUTH_DOMAIN!,
+  projectId: process.env.NEXT_PUBLIC_FB_PROJECT_ID!,
+  storageBucket: process.env.NEXT_PUBLIC_FB_STORAGE_BUCKET!,
+  messagingSenderId: process.env.NEXT_PUBLIC_FB_MESSAGING_SENDER_ID!,
+  appId: process.env.NEXT_PUBLIC_FB_APP_ID!,
+};
+
+// 이미 초기화된 앱이 없으면 초기화
+if (!getApps().length) initializeApp(firebaseConfig);
+
+export const auth = getAuth();
