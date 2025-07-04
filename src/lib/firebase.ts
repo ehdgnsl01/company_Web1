@@ -1,6 +1,9 @@
 import { initializeApp, getApps } from "firebase/app";
 import { getAuth } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
+import { getStorage } from "firebase/storage";
 
+// Client-side Firebase configuration
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FB_API_KEY!,
   authDomain: process.env.NEXT_PUBLIC_FB_AUTH_DOMAIN!,
@@ -10,7 +13,12 @@ const firebaseConfig = {
   appId: process.env.NEXT_PUBLIC_FB_APP_ID!,
 };
 
-// 이미 초기화된 앱이 없으면 초기화
-if (!getApps().length) initializeApp(firebaseConfig);
+// Prevent multiple initializations
+if (!getApps().length) {
+  initializeApp(firebaseConfig);
+}
 
+// Exports
 export const auth = getAuth();
+export const db = getFirestore();
+export const storage = getStorage();

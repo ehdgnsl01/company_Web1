@@ -16,7 +16,7 @@ export default function AdminHomePage() {
           🎥 포트폴리오 관리
         </button>
         <button
-          onClick={() => (window.location.href = "/admin/video")}
+          onClick={() => (window.location.href = "/admin/homevideo")}
           className="p-4 bg-white rounded shadow hover:bg-gray-50"
         >
           📹 홈 영상 관리

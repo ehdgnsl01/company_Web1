@@ -27,7 +27,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "script/setAdminClaim.js"
+    "scripts/setAdminClaim.js"
   ],
   "exclude": ["node_modules"]
 }
