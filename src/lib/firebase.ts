@@ -1,10 +1,10 @@
+// src/lib/firebase.ts
 import { initializeApp, getApps } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 
-// Client-side Firebase configuration
-const firebaseConfig = {
+const config = {
   apiKey: process.env.NEXT_PUBLIC_FB_API_KEY!,
   authDomain: process.env.NEXT_PUBLIC_FB_AUTH_DOMAIN!,
   projectId: process.env.NEXT_PUBLIC_FB_PROJECT_ID!,
@@ -13,12 +13,8 @@ const firebaseConfig = {
   appId: process.env.NEXT_PUBLIC_FB_APP_ID!,
 };
 
-// Prevent multiple initializations
-if (!getApps().length) {
-  initializeApp(firebaseConfig);
-}
+if (!getApps().length) initializeApp(config);
 
-// Exports
 export const auth = getAuth();
 export const db = getFirestore();
-export const storage = getStorage();
+// export const storage = getStorage();

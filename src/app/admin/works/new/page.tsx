@@ -2,37 +2,25 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { db, storage } from "@/lib/firebase";
-import { collection, addDoc, serverTimestamp } from "firebase/firestore";
-// import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
 export default function NewWorkPage() {
   const [title, setTitle] = useState("");
   const [youtubeUrl, setYoutubeUrl] = useState("");
   const [client, setClient] = useState("");
-  // const [thumbFile, setThumbFile] = useState<File | null>(null);
   const router = useRouter();
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    let thumbnailUrl = "";
-
-    // --- Storage 업로드 로직 (나중에 활성화) ---
-    // if (thumbFile) {
-    //   const storageRef = ref(storage, `works/${Date.now()}_${thumbFile.name}`);
-    //   const snap = await uploadBytes(storageRef, thumbFile);
-    //   thumbnailUrl = await getDownloadURL(snap.ref);
-    // }
-    // ------------------------------------------
-
-    await addDoc(collection(db, "works"), {
-      title,
-      youtubeUrl,
-      client,
-      thumbnailUrl, // 현재는 URL 직접 입력 혹은 추후 자동 생성
-      date: serverTimestamp(),
+    const res = await fetch("/api/admin/works", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ title, youtubeUrl, client }),
     });
-    router.replace("/admin/works");
+    if (res.ok) {
+      router.replace("/admin/works");
+    } else {
+      alert("추가에 실패했습니다.");
+    }
   };
 
   return (
