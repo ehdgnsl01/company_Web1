@@ -29,7 +29,7 @@ export default function RootLayout({
       <head />
       <body>
         <SiteHeader /> {/* 일반 헤더는 여기서 조건부 렌더링 */}
-        <main>{children}</main>
+        <main className="pt-16">{children}</main>
       </body>
     </html>
   );

@@ -8,9 +8,9 @@ if (!admin.apps.length) {
       clientEmail: process.env.FIREBASE_CLIENT_EMAIL!,
       privateKey: process.env.FIREBASE_PRIVATE_KEY!.replace(/\\n/g, "\n"),
     }),
+    storageBucket: process.env.FIREBASE_STORAGE_BUCKET!,
   });
 }
 
-// Admin SDK의 네임스페이스 API를 사용하기 위해 firestore() 인스턴스를 내보냅니다.
 export const adminDb = admin.firestore();
 export const adminAuth = admin.auth();

@@ -7,8 +7,8 @@ interface Props {
 }
 export default function AdminHeader({ onSignOut }: Props) {
   return (
-    <header className="bg-white shadow mb-4">
-      <nav className="container mx-auto flex justify-between p-4">
+    <header className="fixed top-0 left-0 right-0 bg-white shadow z-50">
+      <div className="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
         <Link href="/admin" className="font-bold text-xl">
           관리자
         </Link>
@@ -19,7 +19,7 @@ export default function AdminHeader({ onSignOut }: Props) {
             로그아웃
           </button>
         </div>
-      </nav>
+      </div>
     </header>
   );
 }

@@ -5,8 +5,8 @@ import React from "react";
 
 export default function Header() {
   return (
-    <header className="w-full bg-white shadow-sm">
-      <div className="container mx-auto flex items-center justify-between py-4 px-6">
+    <header className="fixed top-0 left-0 right-0 bg-white shadow z-50">
+      <div className="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
         {/* 로고 */}
         <Link href="/" className="text-2xl font-bold text-gray-800">
           MyVideoCo

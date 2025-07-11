@@ -5,7 +5,7 @@ import React from "react";
 
 export default function AdminHomePage() {
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 ">
       <h1 className="text-3xl font-bold">Admin Dashboard</h1>
       <div className="grid grid-cols-2 gap-4">
         {/* 각 관리 섹션으로 네비게이션 */}

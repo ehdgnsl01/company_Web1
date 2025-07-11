@@ -53,7 +53,7 @@ export default function AdminLayout({
           }}
         />
       )}
-      <main className="p-6 bg-gray-100 min-h-screen">{children}</main>
+      <main className="p-6 bg-gray-100 min-h-screen pt-16">{children}</main>
     </>
   );
 }
