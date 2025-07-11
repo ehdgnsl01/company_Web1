@@ -55,14 +55,7 @@ export async function POST(req: Request) {
       year,
     } = await req.json();
     const nowStr = formatKRDate(new Date());
-
-    // 1) Storage 기본 이미지 URL 생성
-    const bucketName = admin.storage().bucket().name;
-    const defaultPath = encodeURIComponent("works/썸네일 기본 이미지.png");
-    const defaultThumbnailUrl = `https://firebasestorage.googleapis.com/v0/b/${bucketName}/o/${defaultPath}?alt=media`;
-
-    // 2) 클라이언트에서 URL을 안 보냈다면 기본 이미지 사용
-    const finalThumbnailUrl = thumbnailUrl || defaultThumbnailUrl;
+    const finalThumbnailUrl = thumbnailUrl;
 
     // 3) Firestore 저장
     const ref = await adminDb.collection("works").add({
