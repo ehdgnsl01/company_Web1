@@ -11,46 +11,24 @@ function formatKRDate(d: Date): string {
   });
 }
 
-// GET    /api/admin/works/:id  → 단일 포트폴리오 조회
-export async function GET(
-  _req: NextRequest,
-  { params }: { params: { id: string } }
-) {
-  const { id } = params;
+// GET  /api/admin/works/:id
+export async function GET(req: NextRequest, { params }: any) {
+  const id: string = params.id;
   try {
     const snap = await adminDb.collection("works").doc(id).get();
     if (!snap.exists) {
       return NextResponse.json({ error: "Not found" }, { status: 404 });
     }
-    const data = snap.data() as {
-      title: string;
-      youtubeUrl: string;
-      client: string;
-      thumbnailUrl: string;
-      year: string;
-      date: string;
-    };
-    return NextResponse.json({
-      id: snap.id,
-      title: data.title,
-      youtubeUrl: data.youtubeUrl,
-      client: data.client,
-      thumbnailUrl: data.thumbnailUrl,
-      year: data.year,
-      date: data.date,
-    });
+    return NextResponse.json({ id: snap.id, ...(snap.data() as any) });
   } catch (e) {
     console.error(`GET /api/admin/works/${id} 오류`, e);
     return NextResponse.json({ error: "조회 실패" }, { status: 500 });
   }
 }
 
-// PUT    /api/admin/works/:id  → 단일 포트폴리오 수정
-export async function PUT(
-  req: NextRequest,
-  { params }: { params: { id: string } }
-) {
-  const { id } = params;
+// PUT  /api/admin/works/:id
+export async function PUT(req: NextRequest, { params }: any) {
+  const id: string = params.id;
   try {
     const {
       title,
@@ -67,13 +45,8 @@ export async function PUT(
       const oldUrl = snap.data()?.thumbnailUrl;
       if (oldUrl && thumbnailUrl && oldUrl !== thumbnailUrl) {
         const encoded = oldUrl.split("/o/")[1].split("?")[0];
-        const filePath = decodeURIComponent(encoded);
-        await admin
-          .storage()
-          .bucket()
-          .file(filePath)
-          .delete()
-          .catch(console.error);
+        const path = decodeURIComponent(encoded);
+        await admin.storage().bucket().file(path).delete().catch(console.error);
       }
     }
 
@@ -85,19 +58,16 @@ export async function PUT(
       year,
       date: nowStr,
     });
-    return NextResponse.json({ success: true }, { status: 200 });
+    return NextResponse.json({ success: true });
   } catch (e) {
     console.error(`PUT /api/admin/works/${id} 오류`, e);
     return NextResponse.json({ error: "수정 실패" }, { status: 500 });
   }
 }
 
-// DELETE /api/admin/works/:id  → 단일 포트폴리오 삭제
-export async function DELETE(
-  _req: NextRequest,
-  { params }: { params: { id: string } }
-) {
-  const { id } = params;
+// DELETE  /api/admin/works/:id
+export async function DELETE(req: NextRequest, { params }: any) {
+  const id: string = params.id;
   try {
     const docRef = adminDb.collection("works").doc(id);
     const snap = await docRef.get();
@@ -105,17 +75,12 @@ export async function DELETE(
       const oldUrl = snap.data()?.thumbnailUrl;
       if (oldUrl) {
         const encoded = oldUrl.split("/o/")[1].split("?")[0];
-        const filePath = decodeURIComponent(encoded);
-        await admin
-          .storage()
-          .bucket()
-          .file(filePath)
-          .delete()
-          .catch(console.error);
+        const path = decodeURIComponent(encoded);
+        await admin.storage().bucket().file(path).delete().catch(console.error);
       }
     }
     await docRef.delete();
-    return NextResponse.json({ success: true }, { status: 200 });
+    return NextResponse.json({ success: true });
   } catch (e) {
     console.error(`DELETE /api/admin/works/${id} 오류`, e);
     return NextResponse.json({ error: "삭제 실패" }, { status: 500 });
