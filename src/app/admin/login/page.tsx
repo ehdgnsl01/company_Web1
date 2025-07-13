@@ -1,6 +1,9 @@
 // src/app/admin/login/page.tsx
 "use client"; // 이 한 줄이 맨 위에 있어야 클라이언트 컴포넌트로 동작합니다
 
+
+import Link from "next/link";
+import Logo from "@/components/Logo";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { auth } from "@/lib/firebase";
@@ -24,12 +27,17 @@ export default function AdminLoginPage() {
   };
 
   return (
-    <main className="min-h-screen flex items-center justify-center bg-gray-50">
+    <main className="min-h-screen flex items-center justify-center">
       <form
         onSubmit={onSubmit}
         className="bg-white p-8 rounded shadow-md w-full max-w-sm"
-      >
-        <h1 className="text-2xl mb-4">관리자 로그인</h1>
+      ><div className="flex items-center mb-4 justify-center gap-5 px-3">
+
+          <Link href="/" className="w-15 text-maincolor-500">
+            <Logo className="fill-current" />
+          </Link>
+          <h1 className="text-2xl">관리자 로그인</h1>
+        </div>
         {error && <p className="text-red-600 mb-2">{error}</p>}
         <label className="block mb-4">
           이메일

@@ -4,7 +4,7 @@
 import { useEffect, useState } from "react";
 import { useRouter, useParams } from "next/navigation";
 import { db, storage } from "@/lib/firebase";
-import { doc, getDoc, serverTimestamp } from "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import type { Portfolio } from "@/models/portfolio";
 
@@ -21,6 +21,7 @@ export default function EditWorkPage() {
     date: "",
   });
   const [thumbFile, setThumbFile] = useState<File | null>(null);
+  const [previewUrl, setPreviewUrl] = useState<string>(form.thumbnailUrl);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -32,7 +33,15 @@ export default function EditWorkPage() {
       setLoading(false);
     }
     if (id) fetchWork();
-  }, [id]);
+    if (thumbFile) {
+      const objectUrl = URL.createObjectURL(thumbFile);
+      setPreviewUrl(objectUrl);
+      return () => {
+        URL.revokeObjectURL(objectUrl);
+      };
+    }
+    setPreviewUrl(form.thumbnailUrl);
+  }, [id, thumbFile, form.thumbnailUrl]);
 
   const onChange = (field: keyof Portfolio, value: string) =>
     setForm((f) => ({ ...f, [field]: value } as Portfolio));
@@ -84,21 +93,6 @@ export default function EditWorkPage() {
       </div>
 
       <div>
-        <label className="block mb-1">썸네일 이미지</label>
-        <input
-          type="file"
-          accept="image/*"
-          onChange={(e) => setThumbFile(e.target.files?.[0] || null)}
-          className="w-full"
-        />
-        <img
-          src={form.thumbnailUrl}
-          alt={form.title}
-          className="w-24 h-24 object-cover rounded"
-        />
-      </div>
-
-      <div>
         <label className="block mb-1">Client</label>
         <input
           value={form.client}
@@ -119,6 +113,35 @@ export default function EditWorkPage() {
           required
           className="w-full border px-3 py-2 rounded"
         />
+      </div>
+
+      <div>
+        <label className="block mb-1">썸네일 이미지</label>
+        <input
+          type="file"
+          accept="image/*"
+          onChange={(e) => setThumbFile(e.target.files?.[0] || null)}
+          className="
+          rounded w-full 
+          file:bg-white file:text-black file:border file:w-20 file:cursor-pointer file:hover:bg-gray-200
+        "
+        />
+
+        {/* 미리보기 */}
+        {previewUrl && (
+          <div className="mt-4 w-full max-w-xs">
+            <div className="relative w-full pt-[56.25%] bg-gray-100 rounded overflow-hidden">
+              {/* 중앙 정렬을 위한 flex 래퍼 */}
+              <div className="absolute inset-0 flex justify-center items-center">
+                <img
+                  src={previewUrl}
+                  alt="썸네일 미리보기"
+                  className="max-w-full max-h-full"
+                />
+              </div>
+            </div>
+          </div>
+        )}
       </div>
 
       <div>

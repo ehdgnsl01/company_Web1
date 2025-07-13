@@ -9,7 +9,7 @@ export default async function WorksPage() {
 
   return (
     <main className="container mx-auto py-16 px-6">
-      <h1 className="text-4xl font-bold mb-8">Our Works</h1>
+      <h1 className="text-4xl font-bold mb-8">Works</h1>
       <div className="grid gap-8 md:grid-cols-2">
         {works.map((w) => (
           <div

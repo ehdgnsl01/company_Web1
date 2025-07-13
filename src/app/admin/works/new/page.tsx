@@ -1,7 +1,7 @@
 // src/app/admin/works/new/page.tsx
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { db, storage } from "@/lib/firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
@@ -12,7 +12,23 @@ export default function NewWorkPage() {
   const [client, setClient] = useState("");
   const [year, setYear] = useState(new Date().getFullYear().toString());
   const [thumbFile, setThumbFile] = useState<File | null>(null);
+  const [previewUrl, setPreviewUrl] = useState<string>("");
   const router = useRouter();
+
+  useEffect(() => {
+    if (!thumbFile) {
+      setPreviewUrl("");
+      return;
+    }
+
+    const url = URL.createObjectURL(thumbFile);
+    setPreviewUrl(url);
+
+    // 컴포넌트 언마운트 혹은 thumbFile 변경 시 URL 해제
+    return () => {
+      URL.revokeObjectURL(url);
+    };
+  }, [thumbFile]);
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -90,14 +106,33 @@ export default function NewWorkPage() {
           type="file"
           accept="image/*"
           onChange={(e) => setThumbFile(e.target.files?.[0] || null)}
-          className="w-full"
+          className="
+          rounded w-full 
+          file:bg-white file:text-black file:border file:w-20 file:cursor-pointer file:hover:bg-gray-200
+        "
         />
+
+        {/* 미리보기 */}
+        {previewUrl && (
+          <div className="mt-4 w-full max-w-xs">
+            <div className="relative w-full pt-[56.25%] bg-gray-100 rounded overflow-hidden">
+              {/* 중앙 정렬을 위한 flex 래퍼 */}
+              <div className="absolute inset-0 flex justify-center items-center">
+                <img
+                  src={previewUrl}
+                  alt="썸네일 미리보기"
+                  className="max-w-full max-h-full"
+                />
+              </div>
+            </div>
+          </div>
+        )}
       </div>
 
       <button
         type="submit"
         disabled={!thumbFile}
-        className="w-full bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 disabled:opacity-50"
+        className="w-full bg-maincolor-500 text-white px-4 py-2 rounded hover:bg-maincolor-300 disabled:opacity-50"
       >
         저장
       </button>

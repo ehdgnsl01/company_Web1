@@ -4,12 +4,37 @@
 <svg
    version="1.1"
    id="svg1"
-   width="1036.271"
-   height="730.57233"
-   viewBox="0 0 1036.271 730.57233"
+   width="913.36414"
+   height="610.22607"
+   viewBox="0 0 913.36414 610.22608"
+   sodipodi:docname="로고만.svg"
+   inkscape:export-filename="로고만.svg"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96"
+   inkscape:version="1.4.2 (f4327f4, 2025-05-13)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns="http://www.w3.org/2000/svg"
    xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="0.39053982"
+     inkscape:cx="52.491446"
+     inkscape:cy="32.006979"
+     inkscape:window-width="1920"
+     inkscape:window-height="1009"
+     inkscape:window-x="1072"
+     inkscape:window-y="270"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg1" />
   <defs
      id="defs1">
     <color-profile
@@ -51,7 +76,7 @@
   </defs>
   <g
      id="layer-MC0"
-     transform="translate(12.926066,5.5397426)">
+     transform="translate(-48.527334,-45.671424)">
     <path
        id="path720"
        d="m 0,0 c 3.066,-6.272 0.466,-13.844 -5.807,-16.91 -6.274,-3.066 -13.845,-0.468 -16.911,5.806 l -25.023,51.191 c -3.066,6.273 -0.466,13.845 5.807,16.911 6.273,3.066 13.845,0.467 16.912,-5.806 z"

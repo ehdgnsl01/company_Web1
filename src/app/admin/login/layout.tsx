@@ -4,5 +4,5 @@ export default function LoginLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <>{children}</>;
+  return <><main className="-mt-30">{children}</main></>;
 }

@@ -16,9 +16,12 @@ export default function AdminLayout({
   const router = useRouter();
   const path = usePathname();
 
+  const isLoginPath =
+    path === "/admin/login" || path === "/admin/login/";
+
   useEffect(() => {
     // 로그인 페이지는 가드만 해제
-    if (path === "/admin/login" || path === "/admin/login/") {
+    if (isLoginPath) {
       setLoading(false);
       return;
     }
@@ -32,7 +35,7 @@ export default function AdminLayout({
     });
 
     return () => unsubscribe();
-  }, [path, router]);
+  }, [isLoginPath, router]);
 
   if (loading) {
     return (
@@ -44,8 +47,8 @@ export default function AdminLayout({
 
   return (
     <>
-      {/* /admin/login 경로일 때는 Header 노출 안 함 */}
-      {path !== "/admin/login" && (
+      {/* 로그인 페이지가 아니면 헤더 표시 */}
+      {!isLoginPath && (
         <AdminHeader
           onSignOut={async () => {
             await signOut(auth);
@@ -53,7 +56,11 @@ export default function AdminLayout({
           }}
         />
       )}
-      <main className="p-6 bg-gray-100 min-h-screen pt-16">{children}</main>
+      <main
+        className="p-6 bg-gray-100 min-h-screen pt-30 -mt-20"
+      >
+        {children}
+      </main>
     </>
   );
 }

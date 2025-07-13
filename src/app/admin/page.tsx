@@ -22,6 +22,14 @@ export default function AdminHomePage() {
           📹 홈 영상 관리
         </button>
       </div>
+      <div className="w-full">
+        <button
+          onClick={() => (window.location.href = "/")}
+          className="p-4 bg-white rounded shadow hover:bg-gray-50"
+        >
+          홈페이지로 가기
+        </button>
+      </div>
     </div>
   );
 }

@@ -107,7 +107,10 @@ export default function AdminHomeVideoPage() {
           type="file"
           accept="video/*"
           onChange={(e) => setVideoFile(e.target.files?.[0] || null)}
-          className="w-full"
+          className="
+          rounded w-full 
+          file:bg-white file:text-black file:border file:w-20 file:cursor-pointer file:hover:bg-gray-200
+        "
         />
       </div>
 
@@ -125,7 +128,7 @@ export default function AdminHomeVideoPage() {
 
       <button
         type="submit"
-        className="w-full bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+        className="w-full bg-maincolor-500 text-white px-4 py-2 rounded hover:bg-maincolor-300"
       >
         저장
       </button>
