@@ -5,11 +5,10 @@ import { adminDb } from "@/lib/firebaseAdmin";
 // GET  /api/works/:id
 export async function GET(
   req: NextRequest,
-  context: { params: { id: string } }  // context.params가 Promise<{id: string}>로 동작
+  context: { params: Promise<{ id: string }> }
 ) {
-  // 1) await를 통해 params를 해제
+  // params를 await로 해제
   const { id } = await context.params;
-
   try {
     const snap = await adminDb.collection("works").doc(id).get();
     if (!snap.exists) {
