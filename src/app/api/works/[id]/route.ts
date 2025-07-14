@@ -1,6 +1,7 @@
 // src/app/api/works/[id]/route.ts
 import { NextResponse, NextRequest } from "next/server";
-import { adminDb } from "@/lib/firebaseAdmin";
+import { db } from "@/lib/firebase";
+import { doc, getDoc } from "firebase/firestore";
 
 // GET  /api/works/:id
 export async function GET(
@@ -9,9 +10,10 @@ export async function GET(
 ) {
   // params를 await로 해제
   const { id } = await context.params;
+
   try {
-    const snap = await adminDb.collection("works").doc(id).get();
-    if (!snap.exists) {
+    const snap = await getDoc(doc(db, "works", id));
+    if (!snap.exists()) {
       return NextResponse.json({ error: "Not found" }, { status: 404 });
     }
     return NextResponse.json({ id: snap.id, ...(snap.data() as any) });
