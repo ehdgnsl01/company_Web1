@@ -14,36 +14,38 @@ export default function ContactPage() {
   };
 
   return (
-    <main className="container mx-auto py-16 px-6">
-      <h1 className="text-4xl font-bold mb-4">Contact Us</h1>
-      <form onSubmit={onSubmit} className="space-y-4 max-w-lg">
-        <div>
-          <label className="block text-sm font-medium mb-1">Email</label>
-          <input
-            type="email"
-            required
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="w-full border rounded px-3 py-2"
-          />
-        </div>
-        <div>
-          <label className="block text-sm font-medium mb-1">Message</label>
-          <textarea
-            required
-            rows={5}
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
-            className="w-full border rounded px-3 py-2"
-          />
-        </div>
-        <button
-          type="submit"
-          className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700"
-        >
-          Send
-        </button>
-      </form>
+    <main className="bg-black py-16 px-6 min-h-screen">
+      <div className="container mx-auto w-full max-w-[1350px] text-white">
+        <h1 className="text-4xl font-bold mb-4">Contact Us</h1>
+        <form onSubmit={onSubmit} className="space-y-4 max-w-lg">
+          <div>
+            <label className="block text-sm font-medium mb-1">Email</label>
+            <input
+              type="email"
+              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="w-full border rounded px-3 py-2"
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium mb-1">Message</label>
+            <textarea
+              required
+              rows={5}
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+              className="w-full border rounded px-3 py-2"
+            />
+          </div>
+          <button
+            type="submit"
+            className="bg-maincolor-500 text-white px-6 py-2 rounded hover:bg-maincolor-300"
+          >
+            Send
+          </button>
+        </form>
+      </div>
     </main>
   );
 }
