@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { db, storage } from "@/lib/firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import type { Portfolio } from "@/models/portfolio";
 
 export default function NewWorkPage() {
   const [title, setTitle] = useState("");
@@ -20,11 +21,8 @@ export default function NewWorkPage() {
       setPreviewUrl("");
       return;
     }
-
     const url = URL.createObjectURL(thumbFile);
     setPreviewUrl(url);
-
-    // 컴포넌트 언마운트 혹은 thumbFile 변경 시 URL 해제
     return () => {
       URL.revokeObjectURL(url);
     };
@@ -38,15 +36,31 @@ export default function NewWorkPage() {
       const snap = await uploadBytes(fileRef, thumbFile);
       thumbnailUrl = await getDownloadURL(snap.ref);
     }
-    const res = await fetch("/api/admin/works", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ title, youtubeUrl, thumbnailUrl, client, year }),
-    });
-    if (res.ok) {
-      router.replace("/admin/works");
-    } else {
-      alert("추가에 실패했습니다.");
+
+    try {
+      // 현재 포트폴리오 목록 불러와 새 order 값 결정
+      const listRes = await fetch('/api/admin/works');
+      if (!listRes.ok) throw new Error('Order 조회 실패');
+      const listData = (await listRes.json()) as Portfolio[];
+      const newOrder = listData.length;
+
+      const res = await fetch('/api/admin/works', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          title,
+          youtubeUrl,
+          client,
+          year,
+          thumbnailUrl,
+          order: newOrder,
+        }),
+      });
+      if (!res.ok) throw new Error('추가 실패');
+      router.replace('/admin/works');
+    } catch (err) {
+      console.error(err);
+      alert('추가에 실패했습니다.');
     }
   };
 
@@ -106,17 +120,12 @@ export default function NewWorkPage() {
           type="file"
           accept="image/*"
           onChange={(e) => setThumbFile(e.target.files?.[0] || null)}
-          className="
-          rounded w-full 
-          file:bg-white file:text-black file:border file:w-20 file:cursor-pointer file:hover:bg-gray-200
-        "
+          className="rounded w-full file:bg-white file:text-black file:border file:w-20 file:cursor-pointer file:hover:bg-gray-200"
         />
 
-        {/* 미리보기 */}
         {previewUrl && (
           <div className="mt-4 w-full max-w-xs">
             <div className="relative w-full pt-[56.25%] bg-gray-100 rounded overflow-hidden">
-              {/* 중앙 정렬을 위한 flex 래퍼 */}
               <div className="absolute inset-0 flex justify-center items-center">
                 <img
                   src={previewUrl}

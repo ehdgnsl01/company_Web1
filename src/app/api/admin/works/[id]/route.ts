@@ -12,8 +12,8 @@ function formatKRDate(d: Date): string {
 }
 
 // GET  /api/admin/works/:id
-export async function GET(req: NextRequest, { params }: any) {
-  const id: string = params.id;
+export async function GET(req: NextRequest, context: { params: { id: string } }) {
+  const { id } = context.params;
   try {
     const snap = await adminDb.collection("works").doc(id).get();
     if (!snap.exists) {
@@ -21,36 +21,18 @@ export async function GET(req: NextRequest, { params }: any) {
     }
     return NextResponse.json({ id: snap.id, ...(snap.data() as any) });
   } catch (e) {
-    console.error(`GET /api/admin/works/${id} 오류`, e);
+    console.error(`GET /api/admin/works/${id} error`, e);
     return NextResponse.json({ error: "조회 실패" }, { status: 500 });
   }
 }
 
 // PUT  /api/admin/works/:id
-export async function PUT(req: NextRequest, { params }: any) {
-  const id: string = params.id;
+export async function PUT(req: NextRequest, context: { params: { id: string } }) {
+  const { id } = context.params;
   try {
-    const {
-      title,
-      youtubeUrl,
-      client,
-      thumbnailUrl = "",
-      year,
-    } = await req.json();
+    const { title, youtubeUrl, client, thumbnailUrl = "", year } = await req.json();
     const nowStr = formatKRDate(new Date());
-
-    const docRef = adminDb.collection("works").doc(id);
-    const snap = await docRef.get();
-    if (snap.exists) {
-      const oldUrl = snap.data()?.thumbnailUrl;
-      if (oldUrl && thumbnailUrl && oldUrl !== thumbnailUrl) {
-        const encoded = oldUrl.split("/o/")[1].split("?")[0];
-        const path = decodeURIComponent(encoded);
-        await admin.storage().bucket().file(path).delete().catch(console.error);
-      }
-    }
-
-    await docRef.update({
+    await adminDb.collection("works").doc(id).update({
       title,
       youtubeUrl,
       client,
@@ -60,29 +42,37 @@ export async function PUT(req: NextRequest, { params }: any) {
     });
     return NextResponse.json({ success: true });
   } catch (e) {
-    console.error(`PUT /api/admin/works/${id} 오류`, e);
+    console.error(`PUT /api/admin/works/${id} error`, e);
     return NextResponse.json({ error: "수정 실패" }, { status: 500 });
   }
 }
 
 // DELETE  /api/admin/works/:id
-export async function DELETE(req: NextRequest, { params }: any) {
-  const id: string = params.id;
+export async function DELETE(req: NextRequest, context: { params: { id: string } }) {
+  const { id } = context.params;
   try {
     const docRef = adminDb.collection("works").doc(id);
     const snap = await docRef.get();
-    if (snap.exists) {
-      const oldUrl = snap.data()?.thumbnailUrl;
-      if (oldUrl) {
-        const encoded = oldUrl.split("/o/")[1].split("?")[0];
-        const path = decodeURIComponent(encoded);
-        await admin.storage().bucket().file(path).delete().catch(console.error);
-      }
+    if (!snap.exists) {
+      return NextResponse.json({ error: "Not found" }, { status: 404 });
     }
-    await docRef.delete();
+    const deletedOrder = (snap.data() as any).order;
+
+    // 1) 해당 문서 삭제
+    const batch = adminDb.batch();
+    batch.delete(docRef);
+
+    // 2) 이후 order > deletedOrder인 문서 order -1
+    const laterSnap = await adminDb.collection("works").where("order", ">", deletedOrder).get();
+    laterSnap.docs.forEach((d) => {
+      const curr = (d.data() as any).order;
+      batch.update(d.ref, { order: curr - 1 });
+    });
+
+    await batch.commit();
     return NextResponse.json({ success: true });
   } catch (e) {
-    console.error(`DELETE /api/admin/works/${id} 오류`, e);
+    console.error(`DELETE /api/admin/works/${id} error`, e);
     return NextResponse.json({ error: "삭제 실패" }, { status: 500 });
   }
 }

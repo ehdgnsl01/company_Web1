@@ -1,6 +1,5 @@
 // src/app/api/admin/works/route.ts
 import { NextResponse, NextRequest } from "next/server";
-import admin from "firebase-admin";
 import { adminDb } from "@/lib/firebaseAdmin";
 
 function formatKRDate(d: Date): string {
@@ -11,12 +10,11 @@ function formatKRDate(d: Date): string {
   });
 }
 
-// GET  /api/admin/works  → 모든 포트폴리오 조회
+// GET  /api/admin/works  → 모든 포트폴리오 조회 (order 기준)
 export async function GET(req: NextRequest) {
   try {
-    // order 필드 기준으로 오름차순 정렬
     const snap = await adminDb.collection("works").orderBy("order", "asc").get();
-    const data = snap.docs.map(doc => ({ id: doc.id, ...(doc.data() as any) }));
+    const data = snap.docs.map((doc) => ({ id: doc.id, ...(doc.data() as any) }));
     return NextResponse.json(data);
   } catch (e) {
     console.error("GET /api/admin/works error", e);
@@ -24,32 +22,36 @@ export async function GET(req: NextRequest) {
   }
 }
 
-// POST /api/admin/works  → 새 포트폴리오 추가
-export async function POST(req: Request) {
+// POST /api/admin/works  → 새 포트폴리오 추가 (dynamic order)
+export async function POST(req: NextRequest) {
   try {
-    const {
-      title,
-      youtubeUrl,
-      client,
-      thumbnailUrl = "",
-      year,
-    } = await req.json();
+    const { title, youtubeUrl, client, thumbnailUrl = "", year } = await req.json();
     const nowStr = formatKRDate(new Date());
-    const finalThumbnailUrl = thumbnailUrl;
 
-    // 3) Firestore 저장
-    const ref = await adminDb.collection("works").add({
-      title,
-      youtubeUrl,
-      client,
-      thumbnailUrl: finalThumbnailUrl,
-      year,
-      date: nowStr,
+    // 1) 기존 문서 order 모두 +1
+    const allSnap = await adminDb.collection("works").get();
+    const batch = adminDb.batch();
+    allSnap.docs.forEach((doc) => {
+      const curr = (doc.data() as any).order ?? 0;
+      batch.update(doc.ref, { order: curr + 1 });
     });
 
-    return NextResponse.json({ id: ref.id }, { status: 201 });
+    // 2) 새 문서 order 0 으로 추가
+    const newRef = adminDb.collection("works").doc();
+    batch.set(newRef, {
+      title,
+      youtubeUrl,
+      client,
+      thumbnailUrl,
+      year,
+      date: nowStr,
+      order: 0,
+    });
+
+    await batch.commit();
+    return NextResponse.json({ id: newRef.id }, { status: 201 });
   } catch (e) {
-    console.error("POST /api/admin/works 오류", e);
+    console.error("POST /api/admin/works error", e);
     return NextResponse.json({ error: "추가 실패" }, { status: 500 });
   }
 }
