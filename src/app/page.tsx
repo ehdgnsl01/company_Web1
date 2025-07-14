@@ -11,7 +11,7 @@ export default function HomePage() {
 
   return (
     <main className="bg-black min-h-screen flex flex-col items-center">
-      <div className="w-full max-w-[1350px] mx-auto">
+      <div className="w-full mx-auto">
         {/* 자동 재생, 무음, 반복, 인라인 재생 */}
         <video
           src={videoUrl}
@@ -21,6 +21,10 @@ export default function HomePage() {
           playsInline
           className="w-full h-auto object-cover"
         />
+      </div>
+      <div className="w-full mx-auto max-w-[1350px]">
+        <div className="bg-red-500">
+        </div>
       </div>
       {/* 아래로 스크롤 시 포트폴리오 간단 영역 추가 예정 */}
     </main>
