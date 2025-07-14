@@ -1,19 +1,13 @@
 // src/app/api/admin/works/[id]/route.ts
 import { NextResponse, NextRequest } from "next/server";
-import admin from "firebase-admin";
 import { adminDb } from "@/lib/firebaseAdmin";
 
-function formatKRDate(d: Date): string {
-  return d.toLocaleString("ko-KR", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
-}
-
 // GET  /api/admin/works/:id
-export async function GET(req: NextRequest, context: { params: { id: string } }) {
-  const { id } = context.params;
+export async function GET(
+  req: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  const { id } = await params;
   try {
     const snap = await adminDb.collection("works").doc(id).get();
     if (!snap.exists) {
@@ -27,11 +21,14 @@ export async function GET(req: NextRequest, context: { params: { id: string } })
 }
 
 // PUT  /api/admin/works/:id
-export async function PUT(req: NextRequest, context: { params: { id: string } }) {
-  const { id } = context.params;
+export async function PUT(
+  req: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  const { id } = await params;
   try {
     const { title, youtubeUrl, client, thumbnailUrl = "", year } = await req.json();
-    const nowStr = formatKRDate(new Date());
+    const nowStr = new Date().toISOString();
     await adminDb.collection("works").doc(id).update({
       title,
       youtubeUrl,
@@ -48,9 +45,13 @@ export async function PUT(req: NextRequest, context: { params: { id: string } })
 }
 
 // DELETE  /api/admin/works/:id
-export async function DELETE(req: NextRequest, context: { params: { id: string } }) {
-  const { id } = context.params;
+export async function DELETE(
+  req: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  const { id } = await params;
   try {
+    // 삭제 대상 문서 참조
     const docRef = adminDb.collection("works").doc(id);
     const snap = await docRef.get();
     if (!snap.exists) {
@@ -58,11 +59,11 @@ export async function DELETE(req: NextRequest, context: { params: { id: string }
     }
     const deletedOrder = (snap.data() as any).order;
 
-    // 1) 해당 문서 삭제
+    // 배치 시작
     const batch = adminDb.batch();
     batch.delete(docRef);
 
-    // 2) 이후 order > deletedOrder인 문서 order -1
+    // 이후 order > deletedOrder인 문서들의 순서 -1
     const laterSnap = await adminDb.collection("works").where("order", ">", deletedOrder).get();
     laterSnap.docs.forEach((d) => {
       const curr = (d.data() as any).order;
