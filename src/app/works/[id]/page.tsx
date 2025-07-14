@@ -24,8 +24,8 @@ export default function WorkDetailPage() {
       .finally(() => setLoading(false));
   }, [id]);
 
-  if (loading) return <div className="p-6 text-center">Loading…</div>;
-  if (error || !form) return <div className="p-6 text-center">작품을 불러오는 중 오류가 발생했습니다.</div>;
+  if (loading) return <div className="text-center bg-black py-16 min-h-screen text-white">Loading…</div>;
+  if (error || !form) return <div className="text-center bg-black py-16 min-h-screen text-white">작품을 불러오는 중 오류가 발생했습니다.</div>;
 
   return (
     <main className="bg-black py-16 min-h-screen text-white">

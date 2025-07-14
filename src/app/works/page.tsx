@@ -5,7 +5,8 @@ import { db } from "@/lib/firebase";
 import { collection, getDocs, orderBy, query } from "firebase/firestore";
 
 export default async function WorksPage() {
-  const q = query(collection(db, "works"), orderBy("date", "desc"));
+  // Admin에서 지정한 order 필드 기준으로 오름차순 정렬
+  const q = query(collection(db, "works"), orderBy("order", "asc"));
   const snap = await getDocs(q);
   const works = snap.docs.map((d) => ({ id: d.id, ...(d.data() as any) }));
 
