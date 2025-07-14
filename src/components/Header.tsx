@@ -6,7 +6,7 @@ import React from "react";
 
 export default function Header() {
   return (
-    <header className="fixed top-0 left-0 right-0 bg-white shadow z-50 h-20">
+    <header className="fixed top-0 left-0 right-0 bg-black shadow z-50 h-20">
       <div className="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
         {/* 로고 */}
         <Link href="/" className="text-maincolor-500">

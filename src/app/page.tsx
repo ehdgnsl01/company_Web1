@@ -10,7 +10,7 @@ export default function HomePage() {
   )}?alt=media`;
 
   return (
-    <main className="bg-white min-h-screen flex flex-col items-center">
+    <main className="bg-black min-h-screen flex flex-col items-center">
       <div className="w-full mx-auto">
         {/* 자동 재생, 무음, 반복, 인라인 재생 */}
         <video
