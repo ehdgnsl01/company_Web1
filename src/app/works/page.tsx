@@ -1,4 +1,6 @@
-// src/app/works/page.tsx  (서버 컴포넌트)
+/* src/app/works/page.tsx */
+
+import Link from "next/link";
 import { db } from "@/lib/firebase";
 import { collection, getDocs, orderBy, query } from "firebase/firestore";
 
@@ -8,28 +10,28 @@ export default async function WorksPage() {
   const works = snap.docs.map((d) => ({ id: d.id, ...(d.data() as any) }));
 
   return (
-    <main className="bg-black py-16 px-6 min-h-screen">
-      <div className="container mx-auto w-full max-w-[1350px]">
+    <main className="bg-black py-16 min-h-screen">
+      <div className="container mx-auto w-full max-w-[1350px] text-white">
         <h1 className="text-4xl font-bold mb-8">Works</h1>
-        <div className="grid gap-8 md:grid-cols-2">
+        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           {works.map((w) => (
-            <div
-              key={w.id}
-              className="border rounded-lg overflow-hidden shadow-sm"
-            >
-              <img src={w.thumbnailUrl} className="w-full h-48 object-cover" />
-              <div className="p-4">
-                <h2 className="text-2xl font-semibold">{w.title}</h2>
-                <p className="text-gray-600 mt-2">{w.client}</p>
-                <div className="mt-4">
-                  <iframe
-                    src={w.youtubeUrl.replace("watch?v=", "embed/")}
-                    className="w-full aspect-video"
-                    allowFullScreen
-                  />
+            <Link key={w.id} href={`/works/${w.id}`}>
+              <div className="block group relative overflow-hidden rounded-lg shadow-sm">
+                <img
+                  src={w.thumbnailUrl}
+                  alt={w.title}
+                  className="w-full h-64 object-cover transform transition-transform duration-300 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-maincolor-300 bg-opacity-30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                  <div className="text-center px-4">
+                    <h2 className="text-xl font-semibold text-white">
+                      {w.title}
+                    </h2>
+                    <p className="mt-2 text-gray-200">{w.client}</p>
+                  </div>
                 </div>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </div>

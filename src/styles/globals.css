@@ -15,7 +15,7 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --color-maincolor-500: oklch(0.4871 0.2586 287.67);
+  --color-maincolor-500: oklch(0.4871 0.2586 287.67); 
   --color-maincolor-300: oklch(0.64 0.2586 287.67);
 }
 
