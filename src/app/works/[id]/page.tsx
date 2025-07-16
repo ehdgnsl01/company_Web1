@@ -42,7 +42,7 @@ export default function WorkDetailPage() {
         <p className="text-gray-400 mb-6">Date: {form.date}</p>
         <div className="aspect-video w-full">
           <iframe
-            src={`https://www.youtube.com/embed/${form.youtubeUrl}`}
+            src={form.youtubeUrl.replace("watch?v=", "embed/")}
             className="w-full h-full rounded-lg"
             allowFullScreen
           ></iframe>
