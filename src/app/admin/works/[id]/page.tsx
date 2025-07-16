@@ -19,10 +19,12 @@ export default function EditWorkPage() {
     year: "",
     client: "",
     date: "",
+    category: "",
   });
   const [thumbFile, setThumbFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string>(form.thumbnailUrl);
   const [loading, setLoading] = useState(true);
+  const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
     async function fetchWork() {
@@ -48,20 +50,23 @@ export default function EditWorkPage() {
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (submitting) return;
+    setSubmitting(true);
     let thumbnailUrl = form.thumbnailUrl;
     if (thumbFile) {
       const fileRef = ref(storage, `works/${Date.now()}_${thumbFile.name}`);
       const snap = await uploadBytes(fileRef, thumbFile);
       thumbnailUrl = await getDownloadURL(snap.ref);
     }
-    const { title, youtubeUrl, client, year } = form;
+    const { title, youtubeUrl, client, year, category } = form;
     const res = await fetch(`/api/admin/works/${id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ title, youtubeUrl, client, thumbnailUrl, year }),
+      body: JSON.stringify({ title, youtubeUrl, client, thumbnailUrl, year, category }),
     });
     if (res.ok) router.replace("/admin/works");
     else alert("수정에 실패했습니다.");
+    setSubmitting(false);
   };
 
   if (loading) return <div className="p-6 text-center">Loading…</div>;
@@ -81,6 +86,42 @@ export default function EditWorkPage() {
           className="w-full border px-3 py-2 rounded"
         />
       </div>
+
+      <div>
+        <label className="block mb-1">분류</label>
+        <div className="relative">
+          <select
+            value={form.category}
+            onChange={(e) => onChange("category", e.target.value)}
+            required
+            className="w-full border px-3 py-2 rounded appearance-none"
+          >
+            <option value="" disabled>
+              분류 선택
+            </option>
+            <option value="category1">분류1</option>
+            <option value="category2">분류2</option>
+            <option value="category3">분류3</option>
+            <option value="category4">분류4</option>
+          </select>
+          {/* 화살표 아이콘 */}
+          <div className="pointer-events-none absolute inset-y-0 right-3 flex items-center">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-5 w-5 text-gray-500"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path
+                fillRule="evenodd"
+                d="M10 12a1 1 0 01-.707-.293l-3-3a1 1 0 011.414-1.414L10 9.586l2.293-2.293a1 1 0 111.414 1.414l-3 3A1 1 0 0110 12z"
+                clipRule="evenodd"
+              />
+            </svg>
+          </div>
+        </div>
+      </div>
+
 
       <div>
         <label className="block mb-1">YouTube URL</label>
@@ -153,6 +194,7 @@ export default function EditWorkPage() {
 
       <button
         type="submit"
+        disabled={submitting}
         className="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700"
       >
         저장

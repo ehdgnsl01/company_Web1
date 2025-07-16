@@ -37,6 +37,7 @@ export default function WorkDetailPage() {
         />
         <h1 className="text-4xl font-bold mb-4">{form.title}</h1>
         <p className="text-gray-400 mb-2">Client: {form.client}</p>
+        <p className="text-gray-400 mb-2">Category: {form.category}</p>
         <p className="text-gray-400 mb-2">Year: {form.year}</p>
         <p className="text-gray-400 mb-6">Date: {form.date}</p>
         <div className="aspect-video w-full">

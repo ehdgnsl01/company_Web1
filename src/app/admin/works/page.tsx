@@ -96,7 +96,10 @@ export default function AdminWorksPage() {
                           className="w-24 h-24 object-cover rounded"
                         />
                         <div>
-                          <p className="font-semibold text-lg">{w.title}</p>
+                          <div className='flex items-baseline'>
+                            <p className="font-semibold text-lg pr-4">{w.title}</p>
+                            <p className="text-sm ">{w.category}</p>
+                          </div>
                           <p className="text-sm text-gray-600">Client: {w.client}</p>
                           <p className="text-sm text-gray-600">Year: {w.year}</p>
                           <p className="text-xs text-gray-500">{w.date}</p>

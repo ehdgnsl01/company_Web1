@@ -2,6 +2,14 @@
 import { NextResponse, NextRequest } from "next/server";
 import { adminDb } from "@/lib/firebaseAdmin";
 
+function formatKRDate(d: Date): string {
+  return d.toLocaleString("ko-KR", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+}
+
 // GET  /api/admin/works/:id
 export async function GET(
   req: NextRequest,
@@ -27,8 +35,8 @@ export async function PUT(
 ) {
   const { id } = await params;
   try {
-    const { title, youtubeUrl, client, thumbnailUrl = "", year } = await req.json();
-    const nowStr = new Date().toISOString();
+    const { title, youtubeUrl, client, thumbnailUrl = "", year, category } = await req.json();
+    const nowStr = formatKRDate(new Date());
     await adminDb.collection("works").doc(id).update({
       title,
       youtubeUrl,
@@ -36,6 +44,7 @@ export async function PUT(
       thumbnailUrl,
       year,
       date: nowStr,
+      category,
     });
     return NextResponse.json({ success: true });
   } catch (e) {

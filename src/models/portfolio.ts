@@ -6,4 +6,5 @@ export interface Portfolio {
   date: string;
   year: string;
   client: string;
+  category: string;
 }
