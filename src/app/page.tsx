@@ -23,16 +23,18 @@ export default function HomePage() {
           playsInline
           className="absolute top-0 left-0 w-full h-full object-cover"
         />
-        <div className="relative z-10 flex flex-col items-center justify-center h-full bg-opacity-50">
-          <h1 className="text-5xl font-bold mb-4">
-            모두의 레퍼런스는 브랜드의 이야기를 시각적으로 아름답게 전합니다.
-          </h1>
-          <p className="text-xl mb-8 max-w-2xl text-center">
-            모두의 레퍼런스는 브랜드의 이야기를 시각적으로 아름답게 전합니다.
-          </p>
-          <button className="px-6 py-3 bg-maincolor-500 hover:bg-maincolor-300 transition rounded-lg">
-            포트폴리오 보기
-          </button>
+        <div className="relative flex flex-col items-left justify-center h-full">
+          <div className="z-10 px-50">
+            <div className="border-l-10 pl-5 border-maincolor-500">
+              <h1 className="text-5xl font-bold mb-10">
+                모두의 레퍼런스는 브랜드의 이야기를<br /> 시각적으로 아름답게 전합니다.
+              </h1>
+              <p className="text-3xl uppercase">
+                All Reference tells the brand's story <br />visually and beautifully.
+              </p>
+            </div>
+          </div>
+          <div className="absolute bg-black opacity-30 h-full w-full"></div>
         </div>
       </section>
 
@@ -106,7 +108,7 @@ export default function HomePage() {
 
       {/* Footer Placeholder */}
       <footer className="py-8 text-center text-gray-500">
-        © {new Date().getFullYear()} 모두의 레퍼런스. All rights reserved.
+        © 2025 모두의 레퍼런스. All rights reserved.
       </footer>
     </main>
   );

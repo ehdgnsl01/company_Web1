@@ -32,11 +32,10 @@ export default function Header() {
                 <li key={href}>
                   <Link
                     href={href}
-                    className={`text-lg font-bold transition-colors duration-300 cursor-pointer ${
-                      isActive
-                        ? "text-maincolor-500"
+                    className={`text-lg font-bold transition-colors duration-300 cursor-pointer ${isActive
+                        ? "text-white"
                         : "text-gray-400 hover:text-white"
-                    } active:text-maincolor-300`}
+                      } active:text-maincolor-300`}
                   >
                     {label}
                   </Link>
