@@ -4,13 +4,12 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import type { Portfolio } from '@/models/portfolio';
-import { CATEGORIES } from '@/models/categories'
+import { CATEGORIES, CategoryValue } from '@/models/categories';
 import { DragDropContext, Droppable, Draggable, DropResult } from '@hello-pangea/dnd';
 
 export default function AdminWorksPage() {
   const [works, setWorks] = useState<Portfolio[]>([]);
-  const [selectedCategory, setSelectedCategory] = useState<string>('category1');
-  const [currentPage, setCurrentPage] = useState(1);
+  const [selectedCategory, setSelectedCategory] = useState<CategoryValue>(CATEGORIES[0].value);
   const router = useRouter();
 
   useEffect(() => {
@@ -33,18 +32,26 @@ export default function AdminWorksPage() {
     const { source, destination } = result;
     if (!destination) return;
 
+    // 전체 works 배열 기준으로 위치 계산
     const items = Array.from(works);
-    const [moved] = items.splice(source.index, 1);
-    items.splice(destination.index, 0, moved);
+    // 필터된 리스트에서 ID 추출
+    const filtered = works.filter(w => w.category === selectedCategory);
+    const movedId = filtered[source.index]?.id;
+    const targetId = filtered[destination.index]?.id;
+
+    const sourceIndex = items.findIndex(w => w.id === movedId);
+    const destIndex = targetId ? items.findIndex(w => w.id === targetId) : items.length;
+
+    const [moved] = items.splice(sourceIndex, 1);
+    items.splice(destIndex, 0, moved);
     setWorks(items);
 
     try {
-      const res = await fetch('/api/admin/works/order', {
+      await fetch('/api/admin/works/order', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ order: items.map(w => w.id) }),
       });
-      console.log("Order API returned:", await res.json());
     } catch (e) {
       console.error('순서 저장 실패', e);
       alert('순서 저장에 실패했습니다.');
@@ -63,14 +70,8 @@ export default function AdminWorksPage() {
     }
   };
 
-  // 필터링 후 페이징
+  // 해당 카테고리에 속한 작품만 필터링 (페이지네이션 제거)
   const filteredWorks = works.filter(w => w.category === selectedCategory);
-  const itemsPerPage = 10;
-  const totalPages = Math.ceil(filteredWorks.length / itemsPerPage);
-  const pagedWorks = filteredWorks.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
-
-  // 카테고리 변경 시 페이지 리셋
-  useEffect(() => { setCurrentPage(1); }, [selectedCategory]);
 
   return (
     <div>
@@ -100,7 +101,7 @@ export default function AdminWorksPage() {
         <Droppable droppableId="works-list">
           {provided => (
             <ul {...provided.droppableProps} ref={provided.innerRef} className="space-y-4">
-              {pagedWorks.map((w, index) => (
+              {filteredWorks.map((w, index) => (
                 <Draggable key={w.id} draggableId={w.id} index={index}>
                   {provided => (
                     <li
@@ -109,7 +110,6 @@ export default function AdminWorksPage() {
                       {...provided.dragHandleProps}
                       className="flex items-center justify-between border p-4 rounded bg-white"
                     >
-                      {/* 콘텐츠 생략 (기존 코드 유지) */}
                       <div className="flex items-center space-x-4">
                         <img
                           src={w.thumbnailUrl}
@@ -137,30 +137,13 @@ export default function AdminWorksPage() {
                         >삭제</button>
                       </div>
                     </li>
-                  )}
-                </Draggable>
+                  )}</Draggable>
               ))}
               {provided.placeholder}
             </ul>
           )}
         </Droppable>
       </DragDropContext>
-
-      {/* 페이지네이션 */}
-      {totalPages > 1 && (
-        <div className="flex justify-center mt-6 space-x-2">
-          {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
-            <button
-              key={page}
-              onClick={() => setCurrentPage(page)}
-              className={`px-3 py-1 rounded ${currentPage === page ? 'bg-maincolor-500 text-white' : 'bg-gray-200'
-                }`}
-            >
-              {page}
-            </button>
-          ))}
-        </div>
-      )}
     </div>
   );
 }
