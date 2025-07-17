@@ -38,8 +38,9 @@ export default function WorkDetailPage() {
         <div className="absolute inset-x-0 top-0 h-203 bg-black opacity-70 z-10" />
         <div className="z-20 ">
           <div className="flex flex-col py-40 max-w-[1350px] mx-auto">
-            <div className="flex">
-              <h1 className="text-5xl font-bold mb-10 pt-3 border-t-5 border-maincolor-500">{form.title}</h1>
+            <div className="flex flex-col">
+              <div className="border-t-5 border-maincolor-500 w-[150px] mb-5" />
+              <h1 className="text-5xl font-bold mb-10">{form.title}</h1>
             </div>
             <div className="flex gap-30 text-xl font-semibold">
               <div>
@@ -57,7 +58,7 @@ export default function WorkDetailPage() {
             </div>
           </div>
           <div className="mx-auto w-full max-w-[1350px] pb-30 flex flex-col items-center">
-            <div className="aspect-video w-full mb-20">
+            <div className="aspect-video w-full">
               <iframe
                 src={form.youtubeUrl.replace("watch?v=", "embed/")}
                 className="w-full h-full"

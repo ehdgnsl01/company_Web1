@@ -4,10 +4,13 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import type { Portfolio } from '@/models/portfolio';
+import { CATEGORIES } from '@/models/categories'
 import { DragDropContext, Droppable, Draggable, DropResult } from '@hello-pangea/dnd';
 
 export default function AdminWorksPage() {
   const [works, setWorks] = useState<Portfolio[]>([]);
+  const [selectedCategory, setSelectedCategory] = useState<string>('category1');
+  const [currentPage, setCurrentPage] = useState(1);
   const router = useRouter();
 
   useEffect(() => {
@@ -30,13 +33,11 @@ export default function AdminWorksPage() {
     const { source, destination } = result;
     if (!destination) return;
 
-    // 1) 클라이언트 상태 업데이트
     const items = Array.from(works);
     const [moved] = items.splice(source.index, 1);
     items.splice(destination.index, 0, moved);
     setWorks(items);
 
-    // 2) 서버에 새로운 순서 전송
     try {
       const res = await fetch('/api/admin/works/order', {
         method: 'PUT',
@@ -62,33 +63,53 @@ export default function AdminWorksPage() {
     }
   };
 
+  // 필터링 후 페이징
+  const filteredWorks = works.filter(w => w.category === selectedCategory);
+  const itemsPerPage = 10;
+  const totalPages = Math.ceil(filteredWorks.length / itemsPerPage);
+  const pagedWorks = filteredWorks.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
+
+  // 카테고리 변경 시 페이지 리셋
+  useEffect(() => { setCurrentPage(1); }, [selectedCategory]);
+
   return (
     <div>
       <h1 className="text-2xl font-bold mb-4">포트폴리오 관리</h1>
+      <div className="flex flex-wrap gap-2 mb-6">
+        {CATEGORIES.map(({ value, label }) => (
+          <button
+            key={value}
+            onClick={() => setSelectedCategory(value)}
+            className={`px-4 py-2 rounded ${selectedCategory === value
+              ? 'bg-maincolor-500 text-white'
+              : 'bg-gray-200'
+              }`}
+          >
+            {label}
+          </button>
+        ))}
+      </div>
       <button
         onClick={() => router.push('/admin/works/new')}
-        className="mb-6 px-4 py-2 bg-blue-600 text-white rounded"
+        className="mb-6 px-4 py-2 bg-maincolor-500 text-white rounded"
       >
         새 포트폴리오 추가
       </button>
 
       <DragDropContext onDragEnd={handleDragEnd}>
         <Droppable droppableId="works-list">
-          {(provided) => (
-            <ul
-              className="space-y-4"
-              {...provided.droppableProps}
-              ref={provided.innerRef}
-            >
-              {works.map((w, index) => (
+          {provided => (
+            <ul {...provided.droppableProps} ref={provided.innerRef} className="space-y-4">
+              {pagedWorks.map((w, index) => (
                 <Draggable key={w.id} draggableId={w.id} index={index}>
-                  {(provided) => (
+                  {provided => (
                     <li
                       ref={provided.innerRef}
                       {...provided.draggableProps}
                       {...provided.dragHandleProps}
                       className="flex items-center justify-between border p-4 rounded bg-white"
                     >
+                      {/* 콘텐츠 생략 (기존 코드 유지) */}
                       <div className="flex items-center space-x-4">
                         <img
                           src={w.thumbnailUrl}
@@ -96,9 +117,9 @@ export default function AdminWorksPage() {
                           className="w-24 h-24 object-cover rounded"
                         />
                         <div>
-                          <div className='flex items-baseline'>
+                          <div className="flex items-baseline">
                             <p className="font-semibold text-lg pr-4">{w.title}</p>
-                            <p className="text-sm ">{w.category}</p>
+                            <p className="text-sm">{w.category}</p>
                           </div>
                           <p className="text-sm text-gray-600">Client: {w.client}</p>
                           <p className="text-sm text-gray-600">Year: {w.year}</p>
@@ -109,15 +130,11 @@ export default function AdminWorksPage() {
                         <button
                           onClick={() => router.push(`/admin/works/${w.id}`)}
                           className="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300"
-                        >
-                          수정
-                        </button>
+                        >수정</button>
                         <button
                           onClick={() => onDelete(w.id)}
                           className="px-3 py-1 bg-red-100 text-red-600 rounded hover:bg-red-200"
-                        >
-                          삭제
-                        </button>
+                        >삭제</button>
                       </div>
                     </li>
                   )}
@@ -128,6 +145,22 @@ export default function AdminWorksPage() {
           )}
         </Droppable>
       </DragDropContext>
+
+      {/* 페이지네이션 */}
+      {totalPages > 1 && (
+        <div className="flex justify-center mt-6 space-x-2">
+          {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
+            <button
+              key={page}
+              onClick={() => setCurrentPage(page)}
+              className={`px-3 py-1 rounded ${currentPage === page ? 'bg-maincolor-500 text-white' : 'bg-gray-200'
+                }`}
+            >
+              {page}
+            </button>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

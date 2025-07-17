@@ -7,6 +7,7 @@ import { db, storage } from "@/lib/firebase";
 import { doc, getDoc } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import type { Portfolio } from "@/models/portfolio";
+import { CATEGORIES } from "@/models/categories"
 
 export default function EditWorkPage() {
   const { id } = useParams<{ id: string }>();
@@ -19,7 +20,7 @@ export default function EditWorkPage() {
     year: "",
     client: "",
     date: "",
-    category: "",
+    category: CATEGORIES[0].value,
   });
   const [thumbFile, setThumbFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string>(form.thumbnailUrl);
@@ -74,7 +75,7 @@ export default function EditWorkPage() {
   return (
     <form
       onSubmit={onSubmit}
-      className="space-y-4 max-w-md bg-white p-6 rounded shadow"
+      className="space-y-4 w-full p-6 rounded bg-white"
     >
       <h2 className="text-xl font-bold">포트폴리오 수정</h2>
       <div>
@@ -92,17 +93,18 @@ export default function EditWorkPage() {
         <div className="relative">
           <select
             value={form.category}
-            onChange={(e) => onChange("category", e.target.value)}
+            onChange={(e) => onChange('category', e.target.value)}
             required
             className="w-full border px-3 py-2 rounded appearance-none"
           >
             <option value="" disabled>
               분류 선택
             </option>
-            <option value="category1">분류1</option>
-            <option value="category2">분류2</option>
-            <option value="category3">분류3</option>
-            <option value="category4">분류4</option>
+            {CATEGORIES.map(({ value, label }) => (
+              <option key={value} value={value}>
+                {label}
+              </option>
+            ))}
           </select>
           {/* 화살표 아이콘 */}
           <div className="pointer-events-none absolute inset-y-0 right-3 flex items-center">

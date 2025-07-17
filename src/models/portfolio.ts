@@ -1,3 +1,5 @@
+import type { CategoryValue } from "./categories";
+
 export interface Portfolio {
   id: string;
   title: string;
@@ -6,5 +8,5 @@ export interface Portfolio {
   date: string;
   year: string;
   client: string;
-  category: string;
+  category: CategoryValue;
 }

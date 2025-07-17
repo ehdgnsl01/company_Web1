@@ -3,9 +3,10 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { db, storage } from "@/lib/firebase";
+import { storage } from "@/lib/firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import type { Portfolio } from "@/models/portfolio";
+import { CATEGORIES } from "@/models/categories";
 
 export default function NewWorkPage() {
   const [title, setTitle] = useState("");
@@ -73,7 +74,7 @@ export default function NewWorkPage() {
   return (
     <form
       onSubmit={onSubmit}
-      className="space-y-4 max-w-md bg-white p-6 rounded shadow"
+      className="space-y-4 w-full bg-white p-6 "
     >
       <h2 className="text-xl font-bold">새 포트폴리오 추가</h2>
 
@@ -99,10 +100,11 @@ export default function NewWorkPage() {
             <option value="" disabled>
               분류 선택
             </option>
-            <option value="category1">분류1</option>
-            <option value="category2">분류2</option>
-            <option value="category3">분류3</option>
-            <option value="category4">분류4</option>
+            {CATEGORIES.map(({ value, label }) => (
+              <option key={value} value={value}>
+                {label}
+              </option>
+            ))}
           </select>
           {/* 화살표 아이콘 */}
           <div className="pointer-events-none absolute inset-y-0 right-3 flex items-center">

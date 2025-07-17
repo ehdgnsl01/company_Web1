@@ -5,17 +5,11 @@ import { getDocs, collection, orderBy, query } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 import AllCategory from "@/components/AllCategory";
 import Category from "@/components/Category";
+import { CategoryValue, CATEGORIES } from "@/models/categories"
 
 export default function WorksPage() {
   const [works, setWorks] = useState<any[]>([]);
   const [selected, setSelected] = useState<string>("ALL");
-  const categories = [
-    "ALL",
-    "category1",
-    "category2",
-    "category3",
-    "category4",
-  ];
 
   useEffect(() => {
     async function fetchWorks() {
@@ -26,37 +20,61 @@ export default function WorksPage() {
     fetchWorks();
   }, []);
 
+  // 버튼 렌더링 시 ALL 과 동적 카테고리 버튼 구분
+  const renderCategoryButtons = () => (
+    <>
+      {/* All 버튼 */}
+      <button
+        key="ALL"
+        onClick={() => setSelected("ALL")}
+        className={`px-4 py-2 rounded transition-all duration-300 ease-in-out cursor-pointer hover:scale-105`}
+      >
+        <span
+          className={`inline-block px-1 transition-all duration-300 ease-in-out ${selected === "ALL"
+            ? "border-b-2 border-maincolor-500"
+            : "border-black"
+            } active:text-maincolor-500`}
+        >
+          All
+        </span>
+      </button>
+
+      {/* 동적 카테고리 버튼 */}
+      {CATEGORIES.map(({ value, label }) => (
+        <button
+          key={value}
+          onClick={() => setSelected(value)}
+          className={`px-4 py-2 rounded transition-all duration-300 ease-in-out cursor-pointer hover:scale-105`}
+        >
+          <span
+            className={`inline-block px-1 transition-all duration-300 ease-in-out ${selected === value
+              ? "border-b-2 border-maincolor-500"
+              : "border-black"
+              } active:text-maincolor-500`}
+          >
+            {label}
+          </span>
+        </button>
+      ))}
+    </>
+  );
+
   return (
     <main className="bg-black py-16 min-h-screen">
       <div className="container mx-auto max-w-[1350px] text-white px-4 relative">
         <div className="flex flex-wrap justify-center gap-4 mb-12 w-full">
-          {categories.map((cat) => (
-            <button
-              key={cat}
-              onClick={() => setSelected(cat)}
-              className={`px-4 py-2 rounded transition-all duration-300 ease-in-out cursor-pointer hover:scale-105`}
-            >
-              <span
-                className={`inline-block px-1 transition-all duration-300 ease-in-out
-                ${
-                  selected === cat
-                    ? "border-b-2 border-maincolor-500"
-                    : "border-black"
-                } active:text-maincolor-500`}
-              >
-                {cat === "ALL" ? "All" : cat}
-              </span>
-            </button>
-          ))}
+          {renderCategoryButtons()}
         </div>
       </div>
       <div>
         {selected === "ALL" ? (
           <div className="container mx-auto max-w-[1350px] text-white px-4">
-            <AllCategory works={works} categories={categories} />
+            <AllCategory
+              works={works}
+            />
           </div>
         ) : (
-          <Category works={works} category={selected} />
+          <Category works={works} category={selected as CategoryValue} />
         )}
       </div>
     </main>
