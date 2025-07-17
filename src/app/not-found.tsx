@@ -5,8 +5,8 @@ import Link from "next/link";
 
 export default function NotFound() {
   return (
-    <main className="flex flex-col items-center justify-center min-h-screen bg-white">
-      <h1 className="text-6xl font-bold text-gray-800 mb-4">404</h1>
+    <main className="flex flex-col items-center justify-center min-h-screen bg-black">
+      <h1 className="text-6xl font-bold text-white mb-4">404</h1>
       <p className="text-xl text-gray-600 mb-8">페이지를 찾을 수 없습니다.</p>
       <Link
         href="/"

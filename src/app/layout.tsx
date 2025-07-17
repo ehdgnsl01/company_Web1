@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "../styles/globals.css";
 import SiteHeader from "@/components/SiteHeader";
 import ScrollToTop from "@/components/ScrollToTop";
+import AnimatedLayout from "@/components/AnimatedLayout";
 
 export const metadata: Metadata = {
   title: "모두의 레퍼런스",
@@ -19,11 +20,16 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <head />
-      <meta name="naver-site-verification" content="eeeb1083e49ada707859e97d1ed303ede947f417" />
+      <meta
+        name="naver-site-verification"
+        content="eeeb1083e49ada707859e97d1ed303ede947f417"
+      />
       <body>
         <SiteHeader /> {/* 일반 헤더는 여기서 조건부 렌더링 */}
         <ScrollToTop />
-        <main className="pt-20">{children}</main>
+        <AnimatedLayout>
+          <main className="pt-20 bg-black">{children}</main>
+        </AnimatedLayout>
       </body>
     </html>
   );
