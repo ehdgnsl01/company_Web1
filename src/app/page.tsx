@@ -1,4 +1,6 @@
 // src/app/page.tsx
+"use client";
+
 import React from "react";
 
 export default function HomePage() {
@@ -10,23 +12,102 @@ export default function HomePage() {
   )}?alt=media`;
 
   return (
-    <main className="bg-black min-h-screen flex flex-col items-center">
-      <div className="w-full mx-auto">
-        {/* 자동 재생, 무음, 반복, 인라인 재생 */}
+    <main className="bg-black text-white">
+      {/* Hero Section */}
+      <section className="relative w-full h-screen overflow-hidden">
         <video
           src={videoUrl}
           autoPlay
           muted
           loop
           playsInline
-          className="w-full h-auto object-cover"
+          className="absolute top-0 left-0 w-full h-full object-cover"
         />
-      </div>
-      <div className="w-full mx-auto max-w-[1350px]">
-        <div className="bg-red-500">
+        <div className="relative z-10 flex flex-col items-center justify-center h-full bg-opacity-50">
+          <h1 className="text-5xl font-bold mb-4">
+            모두의 레퍼런스는 브랜드의 이야기를 시각적으로 아름답게 전합니다.
+          </h1>
+          <p className="text-xl mb-8 max-w-2xl text-center">
+            모두의 레퍼런스는 브랜드의 이야기를 시각적으로 아름답게 전합니다.
+          </p>
+          <button className="px-6 py-3 bg-maincolor-500 hover:bg-maincolor-300 transition rounded-lg">
+            포트폴리오 보기
+          </button>
         </div>
-      </div>
-      {/* 아래로 스크롤 시 포트폴리오 간단 영역 추가 예정 */}
+      </section>
+
+      {/* Services Section */}
+      <section className="py-20 px-4 md:px-8 lg:px-16">
+        <h2 className="text-3xl font-semibold text-center mb-12">
+          Our Services
+        </h2>
+        <div className="grid gap-8 md:grid-cols-3">
+          {[
+            {
+              title: "기업 홍보 영상",
+              desc: "기업의 가치를 효과적으로 전달하는 홍보 영상을 제작합니다.",
+            },
+            {
+              title: "제품 소개 영상",
+              desc: "제품 특징을 돋보이게 하는 감각적인 소개 영상을 제작합니다.",
+            },
+            {
+              title: "이벤트 영상",
+              desc: "행사의 모든 순간을 생생하게 담아내는 이벤트 영상을 제공합니다.",
+            },
+          ].map((service) => (
+            <div
+              key={service.title}
+              className="bg-gray-900 p-8 rounded-lg shadow-lg hover:scale-105 transition"
+            >
+              <h3 className="text-2xl font-bold mb-4">{service.title}</h3>
+              <p className="text-gray-300">{service.desc}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Portfolio Preview */}
+      <section className="py-20 px-4 md:px-8 lg:px-16 bg-black">
+        <h2 className="text-3xl font-semibold text-center mb-12">
+          Featured Works
+        </h2>
+        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+          {[1, 2, 3].map((id) => (
+            <div
+              key={id}
+              className="group relative overflow-hidden rounded-lg shadow-lg"
+            >
+              <div className="w-full h-56 bg-gray-800 flex items-center justify-center text-gray-500">
+                썸네일 {id}
+              </div>
+              <div className="absolute inset-0 bg-black bg-opacity-40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
+                <button className="px-4 py-2 bg-maincolor-500 rounded-lg">
+                  자세히 보기
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Call to Action */}
+      <section className="py-20 px-4 md:px-8 lg:px-16">
+        <div className="max-w-2xl mx-auto text-center">
+          <h2 className="text-3xl font-semibold mb-6">문의하기</h2>
+          <p className="text-gray-300 mb-8">
+            영상 제작에 대한 문의나 견적 요청은 언제든지 환영합니다.
+          </p>
+          <button className="px-8 py-4 bg-maincolor-500 hover:bg-maincolor-300 transition rounded-lg">
+            지금 문의하기
+          </button>
+        </div>
+      </section>
+
+      {/* Footer Placeholder */}
+      <footer className="py-8 text-center text-gray-500">
+        © {new Date().getFullYear()} 모두의 레퍼런스. All rights reserved.
+      </footer>
     </main>
   );
 }
