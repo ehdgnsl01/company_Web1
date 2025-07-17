@@ -8,7 +8,7 @@ export default function AnimatedLayout({ children }: { children: ReactNode }) {
   const pathname = usePathname();
 
   return (
-    <AnimatePresence initial={false} mode="wait">
+    <AnimatePresence mode="wait">
       {/* page wrapper always <main> once */}
       <main className="bg-black">
         {/* 내용 애니메이션은 <motion.div>로 */}
