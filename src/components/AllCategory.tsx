@@ -34,11 +34,11 @@ export default function AllCategory({ works }: AllCategoryProps) {
         if (!group.length) return null;
         return (
           <div key={cat} className="mb-20">
-            <h2 className="text-4xl font-medium mb-12 w-full text-center border-t pt-10">
+            <h2 className="text-4xl font-bold  w-full pb-5 mb-5 text-center border-b pt-10">
               {CATEGORIES.find((c) => c.value === cat)?.label || cat}
             </h2>
             <motion.div
-              className="grid gap-8 md:grid-cols-2 lg:grid-cols-3"
+              className="grid gap-0 md:grid-cols-2 lg:grid-cols-3"
               initial="hidden"
               animate="show"
               variants={{
@@ -50,7 +50,10 @@ export default function AllCategory({ works }: AllCategoryProps) {
                 <motion.div
                   key={w.id}
                   className="block group relative overflow-hidden cursor-pointer"
-                  variants={{ hidden: { opacity: 0, y: 20 }, show: { opacity: 1, y: 0 } }}
+                  variants={{
+                    hidden: { opacity: 0, y: 20 },
+                    show: { opacity: 1, y: 0 },
+                  }}
                   transition={{ duration: 0.5 }}
                 >
                   <Link key={w.id} href={`/works/${w.id}`}>

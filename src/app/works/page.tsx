@@ -5,7 +5,7 @@ import { getDocs, collection, orderBy, query } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 import AllCategory from "@/components/AllCategory";
 import Category from "@/components/Category";
-import { CategoryValue, CATEGORIES } from "@/models/categories"
+import { CategoryValue, CATEGORIES } from "@/models/categories";
 
 export default function WorksPage() {
   const [works, setWorks] = useState<any[]>([]);
@@ -30,10 +30,11 @@ export default function WorksPage() {
         className={`px-4 py-2 rounded transition-all duration-300 ease-in-out cursor-pointer hover:scale-105`}
       >
         <span
-          className={`inline-block px-1 transition-all duration-300 ease-in-out ${selected === "ALL"
-            ? "border-b-2 border-maincolor-500"
-            : "border-black"
-            } active:text-maincolor-500`}
+          className={`inline-block px-1 transition-all duration-300 ease-in-out ${
+            selected === "ALL"
+              ? "border-b-2 border-maincolor-500"
+              : "border-black"
+          } active:text-maincolor-500`}
         >
           All
         </span>
@@ -47,10 +48,11 @@ export default function WorksPage() {
           className={`px-4 py-2 rounded transition-all duration-300 ease-in-out cursor-pointer hover:scale-105`}
         >
           <span
-            className={`inline-block px-1 transition-all duration-300 ease-in-out ${selected === value
-              ? "border-b-2 border-maincolor-500"
-              : "border-black"
-              } active:text-maincolor-500`}
+            className={`inline-block px-1 transition-all duration-300 ease-in-out ${
+              selected === value
+                ? "border-b-2 border-maincolor-500"
+                : "border-black"
+            } active:text-maincolor-500`}
           >
             {label}
           </span>
@@ -62,16 +64,14 @@ export default function WorksPage() {
   return (
     <main className="bg-black py-16 min-h-screen">
       <div className="container mx-auto max-w-[1350px] text-white px-4 relative">
-        <div className="flex flex-wrap justify-center gap-4 mb-12 w-full">
+        <div className="flex flex-wrap justify-center gap-4 mb-12 w-full font-light">
           {renderCategoryButtons()}
         </div>
       </div>
       <div>
         {selected === "ALL" ? (
           <div className="container mx-auto max-w-[1350px] text-white px-4">
-            <AllCategory
-              works={works}
-            />
+            <AllCategory works={works} />
           </div>
         ) : (
           <Category works={works} category={selected as CategoryValue} />

@@ -3,6 +3,7 @@ import "../styles/globals.css";
 import SiteHeader from "@/components/SiteHeader";
 import ScrollToTop from "@/components/ScrollToTop";
 import AnimatedLayout from "@/components/AnimatedLayout";
+import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
   title: "모두의 레퍼런스",
@@ -30,6 +31,7 @@ export default function RootLayout({
         <AnimatedLayout>
           <main className="pt-20 bg-black">{children}</main>
         </AnimatedLayout>
+        <Footer />
       </body>
     </html>
   );

@@ -15,7 +15,7 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --color-maincolor-500: oklch(0.4871 0.2586 287.67); 
+  --color-maincolor-500: oklch(0.4871 0.2586 287.67);
   --color-maincolor-300: oklch(0.64 0.2586 287.67);
 }
 
@@ -24,6 +24,31 @@
     --background: #0a0a0a;
     --foreground: #ededed;
   }
+}
+@keyframes vertical-down {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-50%);
+  }
+}
+
+@keyframes vertical-up {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(50%);
+  }
+}
+.animate-vertical-down {
+  animation: vertical-down 100s linear infinite;
+  will-change: transform;
+}
+.animate-vertical-up {
+  animation: vertical-up 100s linear infinite;
+  will-change: transform;
 }
 
 body {
