@@ -34,7 +34,7 @@ export default function AllCategory({ works }: AllCategoryProps) {
         if (!group.length) return null;
         return (
           <div key={cat} className="mb-20">
-            <h2 className="text-4xl font-bold  w-full pb-5 mb-5 text-center border-b pt-10">
+            <h2 className="text-4xl font-bold  w-full pb-5 mb-5 text-center border-b border-gray-500 pt-10">
               {CATEGORIES.find((c) => c.value === cat)?.label || cat}
             </h2>
             <motion.div

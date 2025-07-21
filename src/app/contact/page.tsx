@@ -1,50 +1,34 @@
 // src/app/contact/page.tsx
-"use client"; // 폼 제출 이벤트를 위해 클라이언트 컴포넌트로 선언
-
-import { useState } from "react";
+import React from "react";
+import ContactForm from "@/components/ContactForm";
 
 export default function ContactPage() {
-  const [email, setEmail] = useState("");
-  const [message, setMessage] = useState("");
-
-  const onSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // TODO: API 호출로 이메일 전송 로직 추가
-    alert(`Email: ${email}\nMessage: ${message}`);
-  };
-
   return (
-    <main className="bg-black py-16 px-6 min-h-screen">
-      <div className="container mx-auto w-full max-w-[1350px] text-white">
-        <h1 className="text-4xl font-bold mb-4">Contact Us</h1>
-        <form onSubmit={onSubmit} className="space-y-4 max-w-lg">
-          <div>
-            <label className="block text-sm font-medium mb-1">Email</label>
-            <input
-              type="email"
-              required
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="w-full border rounded px-3 py-2"
-            />
+    <main className="bg-black py-16 px-4 min-h-screen text-white">
+      <div className="mx-auto flex flex-col md:flex-row gap-12">
+        {/* Left: Contact Form */}
+        <div className="md:w-1/2">
+          <ContactForm />
+        </div>
+
+        {/* Right: Company Info */}
+        <div className="md:w-1/2 space-y-6 py-20 text-left">
+          <h2 className="text-2xl font-bold mb-10">Contact Information</h2>
+          <div className="space-y-4 flex flex-col gap-10">
+            <div>
+              <h3 className="font-semibold">전화번호</h3>
+              <p>02-1234-5678</p>
+            </div>
+            <div>
+              <h3 className="font-semibold">이메일</h3>
+              <p>info@allref.co.kr</p>
+            </div>
+            <div>
+              <h3 className="font-semibold">주소</h3>
+              <p>서울특별시 강남구 테헤란로 123, 10층</p>
+            </div>
           </div>
-          <div>
-            <label className="block text-sm font-medium mb-1">Message</label>
-            <textarea
-              required
-              rows={5}
-              value={message}
-              onChange={(e) => setMessage(e.target.value)}
-              className="w-full border rounded px-3 py-2"
-            />
-          </div>
-          <button
-            type="submit"
-            className="bg-maincolor-500 text-white px-6 py-2 rounded hover:bg-maincolor-300"
-          >
-            Send
-          </button>
-        </form>
+        </div>
       </div>
     </main>
   );
