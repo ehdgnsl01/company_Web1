@@ -5,6 +5,7 @@ import React, { useState, useEffect } from "react";
 import { getDocs, collection, orderBy, query } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 
+import OurService from "@/components/OurService";
 import PortfolioMain from "@/components/PortfolioMain";
 
 export default function HomePage() {
@@ -55,36 +56,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Services Section */}
-      <section className="py-20 px-4 md:px-8 lg:px-16">
-        <h2 className="text-3xl font-semibold text-center mb-12">
-          Our Services
-        </h2>
-        <div className="grid gap-8 md:grid-cols-3">
-          {[
-            {
-              title: "기업 홍보 영상",
-              desc: "기업의 가치를 효과적으로 전달하는 홍보 영상을 제작합니다.",
-            },
-            {
-              title: "제품 소개 영상",
-              desc: "제품 특징을 돋보이게 하는 감각적인 소개 영상을 제작합니다.",
-            },
-            {
-              title: "이벤트 영상",
-              desc: "행사의 모든 순간을 생생하게 담아내는 이벤트 영상을 제공합니다.",
-            },
-          ].map((service) => (
-            <div
-              key={service.title}
-              className="bg-gray-900 p-8 rounded-lg shadow-lg hover:scale-105 transition"
-            >
-              <h3 className="text-2xl font-bold mb-4">{service.title}</h3>
-              <p className="text-gray-300">{service.desc}</p>
-            </div>
-          ))}
-        </div>
-      </section>
+      <OurService />
       <PortfolioMain items={works} />
 
       {/* Call to Action */}

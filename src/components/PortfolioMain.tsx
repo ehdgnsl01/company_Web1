@@ -1,10 +1,10 @@
 // src/components/PortfolioMain.tsx
 "use client";
 
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import type { Portfolio } from "@/models/portfolio";
 import Link from "next/link";
-import { motion, useAnimation, useInView } from "framer-motion";
+import { motion, useAnimation } from "framer-motion";
 
 interface PortfolioMainProps {
   items: Portfolio[];
@@ -13,27 +13,40 @@ interface PortfolioMainProps {
 export default function PortfolioMain({ items }: PortfolioMainProps) {
   // 무한 루프를 위해 두 번 이어붙임
   const loopItems = [...items, ...items];
-
-  // 1) 감시할 ref
   const textRef = useRef<HTMLDivElement>(null);
-  // 2) inView 감지 (뷰포트 50% 이상 보이면 true)
-  const inView = useInView(textRef, { amount: 0.8 });
-  // 3) 애니메이션 컨트롤러
   const controls = useAnimation();
 
-  // 4) inView 변경에 따라 show/hide
+  // 1) 요소의 문서 기준 위치 저장
+  const [triggerY, setTriggerY] = useState<number>(0);
   useEffect(() => {
-    if (inView) {
-      controls.start("visible");
-    } else {
-      controls.start("hidden");
+    if (textRef.current) {
+      // 요소 최상단이 문서 상단에서 얼마나 떨어져 있는지
+      const rect = textRef.current.getBoundingClientRect();
+      const scrollTop = window.scrollY || window.pageYOffset;
+      setTriggerY(rect.top + scrollTop - window.innerHeight * 0.5);
+      // 예: 뷰포트의 30% 지점에 닿으면 트리거
     }
-  }, [inView, controls]);
+  }, []);
 
-  // 5) variants 정의
-  const textVariants = {
-    hidden: { opacity: 0, y: 20, transition: { duration: 0.4 } },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.4 } },
+  // 2) 스크롤 리스너에서 비교
+  useEffect(() => {
+    const onScroll = () => {
+      const scrollY = window.scrollY || window.pageYOffset;
+      if (scrollY > triggerY) {
+        controls.start("visible");
+      } else {
+        controls.start("hidden");
+      }
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    // 초기 상태 체크
+    onScroll();
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [triggerY, controls]);
+
+  const variants = {
+    hidden: { opacity: 0, y: -20 },
+    visible: { opacity: 1, y: 0 },
   };
 
   return (
@@ -43,8 +56,9 @@ export default function PortfolioMain({ items }: PortfolioMainProps) {
         ref={textRef}
         initial="hidden"
         animate={controls}
-        variants={textVariants}
-        className="lg:w-1/2 w-full mb-8 text-center lg:text-left ms-30"
+        variants={variants}
+        transition={{ duration: 0.5 }}
+        className="lg:w-1/2 w-full mb-8 text-center lg:text-left ms-20"
       >
         <h2 className="text-4xl font-bold mb-4">모두의 레퍼런스와 함께</h2>
         <p className="text-lg leading-relaxed mb-6">
@@ -60,7 +74,14 @@ export default function PortfolioMain({ items }: PortfolioMainProps) {
       </motion.div>
 
       {/* Right Vertical Sliders */}
-      <div className="lg:w-1/2 w-full grid grid-cols-2 gap-2">
+      <motion.div
+        ref={textRef}
+        initial="hidden"
+        animate={controls}
+        variants={variants}
+        transition={{ duration: 0.5 }}
+        className="lg:w-1/2 w-full grid grid-cols-2 gap-2 me-20"
+      >
         {/* Slider Down */}
         <div className="overflow-hidden h-120 relative flex justify-center">
           <div className="absolute top-0 animate-vertical-down w-full">
@@ -90,7 +111,7 @@ export default function PortfolioMain({ items }: PortfolioMainProps) {
             ))}
           </div>
         </div>
-      </div>
+      </motion.div>
 
       {/* 스타일 정의 */}
     </section>
