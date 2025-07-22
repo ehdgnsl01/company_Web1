@@ -76,8 +76,8 @@ export default function AboutPage() {
             당신의 이야기를 영상으로 완성합니다
           </h1>
           <p className="text-lg max-w-2xl">
-            신뢰와 창의력으로 무장한 우리의 팀이
-            당신의 메시지를 세상에 전합니다.
+            신뢰와 창의력으로 무장한 우리의 팀이 당신의 메시지를 세상에
+            전합니다.
           </p>
         </motion.div>
       </section>
@@ -106,10 +106,11 @@ export default function AboutPage() {
           <div className="w-full space-y-4 me-30">
             <h2 className="text-3xl font-bold">Founder’s Message</h2>
             <p className="text-lg leading-relaxed">
-              “우리는 항상 고객의 눈높이에서 생각합니다.
-              최선을 다해, 단 한 번의 기회도 놓치지 않는 꼼꼼함으로
-              여러분의 비전을 현실로 만들어 가겠습니다.”
-              <br /><br /> - 대표 홍길동 -
+              “우리는 항상 고객의 눈높이에서 생각합니다. 최선을 다해, 단 한 번의
+              기회도 놓치지 않는 꼼꼼함으로 여러분의 비전을 현실로 만들어
+              가겠습니다.”
+              <br />
+              <br /> - 대표 홍길동 -
             </p>
           </div>
         </motion.div>
@@ -131,8 +132,8 @@ export default function AboutPage() {
             Our Process
           </motion.h2>
           <p className="mt-4 text-lg text-gray-300">
-            아이디어에서 완성 영상까지,
-            체계적인 4단계 프로세스로 최고의 결과를 보장합니다.
+            아이디어에서 완성 영상까지, 체계적인 4단계 프로세스로 최고의 결과를
+            보장합니다.
           </p>
         </div>
 
@@ -140,7 +141,7 @@ export default function AboutPage() {
           {PROCESS_STEPS.map((step, idx) => (
             <motion.div
               key={step.title}
-              className="relative h-64 rounded-lg overflow-hidden shadow-lg"
+              className="relative h-64 overflow-hidden shadow-lg"
               custom={idx}
               initial="hidden"
               whileInView="visible"
@@ -157,7 +158,9 @@ export default function AboutPage() {
 
               {/* 아이콘 + 텍스트 */}
               <div className="relative z-10 flex flex-col items-center justify-center h-full text-center px-4">
-                <h3 className="text-2xl font-semibold text-white mb-1">{step.title}</h3>
+                <h3 className="text-2xl font-semibold text-white mb-1">
+                  {step.title}
+                </h3>
                 <p className="text-md text-gray-200">{step.desc}</p>
               </div>
             </motion.div>

@@ -59,7 +59,7 @@ export default function PortfolioMain({ items }: PortfolioMainProps) {
                 <img
                   src={w.thumbnailUrl}
                   alt={w.title}
-                  className="w-full h-60 object-cover"
+                  className="w-full h-45 object-cover"
                 />
               </div>
             ))}
@@ -74,7 +74,7 @@ export default function PortfolioMain({ items }: PortfolioMainProps) {
                 <img
                   src={w.thumbnailUrl}
                   alt={w.title}
-                  className="w-full h-60 object-cover"
+                  className="w-full h-45 object-cover"
                 />
               </div>
             ))}
