@@ -20,10 +20,12 @@ export const metadata: Metadata = {
     "제품 소개 영상",
     "이벤트 영상",
     "영상 편집",
+    "모두의 레퍼런스",
+    "all reference",
   ],
   robots: "index, follow",
   icons: {
-    icon: "/allref_favicon.ico",
+    icon: "/favicon.ico",
   },
   openGraph: {
     title: "모두의 레퍼런스 – 영상 제작 전문 회사",
@@ -45,8 +47,6 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    site: "@allref_official",
-    creator: "@allref_official",
     title: "모두의 레퍼런스 – 영상 제작 전문 회사",
     description:
       "기업 홍보, 제품 소개, 이벤트 영상까지—모두의 레퍼런스가 고객의 이야기를 영상으로 완성합니다.",
@@ -66,13 +66,13 @@ export default function RootLayout({
     "@type": "Organization",
     name: "모두의 레퍼런스",
     url: siteUrl,
-    logo: `${siteUrl}/allref_favicon.ico`,
+    logo: `${siteUrl}/favicon.ico`,
     contactPoint: {
       "@type": "ContactPoint",
       telephone: "02-1234-5678",
       contactType: "customer service",
       areaServed: "KR",
-      availableLanguage: ["Korean", "English"],
+      availableLanguage: ["Korean"],
     },
   };
 
