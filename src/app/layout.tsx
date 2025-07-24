@@ -25,6 +25,7 @@ export default function RootLayout({
         name="naver-site-verification"
         content="eeeb1083e49ada707859e97d1ed303ede947f417"
       />
+      <meta name="google-site-verification" content="H--3NmnC3xnQiaInBVgKWtAqDtceHNANCD-aK0x09eQ" />
       <body>
         <SiteHeader /> {/* 일반 헤더는 여기서 조건부 렌더링 */}
         <ScrollToTop />

@@ -5,6 +5,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
 import { Portfolio } from "@/models/portfolio";
+import { CATEGORIES } from "@/models/categories";
 
 export default function WorkDetailPage() {
   const { id } = useParams<{ id: string }>();
@@ -27,6 +28,9 @@ export default function WorkDetailPage() {
   if (loading) return <div className="text-center bg-black py-16 min-h-screen text-white">Loading…</div>;
   if (error || !form) return <div className="text-center bg-black py-16 min-h-screen text-white">작품을 불러오는 중 오류가 발생했습니다.</div>;
 
+  const categoryLabel =
+    CATEGORIES.find((c) => c.value === form.category)?.label ?? form.category;
+
   return (
     <main className="bg-black min-h-screen text-white">
       <div className="relative w-full flex flex-col">
@@ -39,25 +43,12 @@ export default function WorkDetailPage() {
         <div className="z-20 ">
           <div className="flex flex-col py-40 max-w-[1350px] mx-auto">
             <div className="flex flex-col">
+              <p className="text-lg font-medium mb-2">{categoryLabel}</p>
               <div className="border-t-5 border-maincolor-500 w-[150px] mb-5" />
               <h1 className="text-5xl font-bold mb-10">{form.title}</h1>
             </div>
-            <div className="flex gap-30 text-xl font-semibold">
-              <div>
-                <p className="text-lg font-light text-gray-300">Client</p>
-                <p className="">{form.client}</p>
-              </div>
-              <div>
-                <p className="text-lg font-light text-gray-300">Year</p>
-                <p className="">{form.year}</p>
-              </div>
-              <div>
-                <p className="text-lg font-light text-gray-300">Category</p>
-                <p className="">{form.category}</p>
-              </div>
-            </div>
           </div>
-          <div className="mx-auto w-full max-w-[1350px] pb-30 flex flex-col items-center">
+          <div className="mx-auto w-full max-w-[960px] pb-70 flex flex-col items-center">
             <div className="aspect-video w-full">
               <iframe
                 src={form.youtubeUrl.replace("watch?v=", "embed/")}

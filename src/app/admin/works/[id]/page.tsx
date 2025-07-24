@@ -17,8 +17,8 @@ export default function EditWorkPage() {
     title: "",
     youtubeUrl: "",
     thumbnailUrl: "",
-    year: "",
-    client: "",
+    //year: "",
+    //client: "",
     date: "",
     category: CATEGORIES[0].value,
   });
@@ -59,11 +59,14 @@ export default function EditWorkPage() {
       const snap = await uploadBytes(fileRef, thumbFile);
       thumbnailUrl = await getDownloadURL(snap.ref);
     }
-    const { title, youtubeUrl, client, year, category } = form;
+    // Client, year 필요 X 사장님 요청사항
+    //const { title, youtubeUrl, client, year, category } = form;
+    const { title, youtubeUrl, category } = form;
     const res = await fetch(`/api/admin/works/${id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ title, youtubeUrl, client, thumbnailUrl, year, category }),
+      //body: JSON.stringify({ title, youtubeUrl, client, thumbnailUrl, year, category }),
+      body: JSON.stringify({ title, youtubeUrl, thumbnailUrl, category }),
     });
     if (res.ok) router.replace("/admin/works");
     else alert("수정에 실패했습니다.");
@@ -134,7 +137,7 @@ export default function EditWorkPage() {
           className="w-full border px-3 py-2 rounded"
         />
       </div>
-
+      {/* Client, Year 필요X (사장님 요청사항)
       <div>
         <label className="block mb-1">Client</label>
         <input
@@ -157,7 +160,7 @@ export default function EditWorkPage() {
           className="w-full border px-3 py-2 rounded"
         />
       </div>
-
+*/}
       <div>
         <label className="block mb-1">썸네일 이미지</label>
         <input

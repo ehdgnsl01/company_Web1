@@ -6,7 +6,7 @@ export interface Portfolio {
   youtubeUrl: string;
   thumbnailUrl: string;
   date: string;
-  year: string;
-  client: string;
+  //year: string;
+  //client: string;
   category: CategoryValue;
 }

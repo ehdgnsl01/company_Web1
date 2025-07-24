@@ -4,6 +4,7 @@
 import React from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 export default function About() {
   const variants = {
@@ -12,9 +13,9 @@ export default function About() {
   };
 
   return (
-    <section className="py-20 bg-black text-white px-4 my-80">
+    <section className="pb-20 bg-black text-white mb-80 mt-60">
       <motion.div
-        className=" mx-20 flex items-center gap-12"
+        className="flex items-center gap-12"
         initial="hidden"
         whileInView="visible"
         viewport={{ amount: 0.1, once: false }}
@@ -23,26 +24,35 @@ export default function About() {
       >
         {/* Left: 제작진 사진 */}
         <div className="w-full">
-          <div className="relative w-full h-120 rounded-lg overflow-hidden shadow-lg">
+          <div className="relative w-full h-220 overflow-hidden shadow-lg">
             <Image
               src="/images/team.jpg" // public/images/team.jpg
               alt="제작진"
               fill
               style={{ objectFit: "cover" }}
             />
+            <div className="relative flex flex-col items-left justify-center h-full">
+              <div className="z-10 px-50">
+                <div className="pl-5">
+                  <h1 className="text-5xl font-bold mb-10">
+                    모두의 레퍼런스는 브랜드의 이야기를
+                    <br /> 시각적으로 아름답게 전합니다.
+                  </h1>
+                  <p className="text-3xl uppercase mb-10">
+                    All Reference tells the brand's story <br />
+                    visually and beautifully.
+                  </p>
+                  <Link href="/contact">
+                    <button className="px-8 py-2 border cursor-pointer hover:scale-105 transition">
+                      지금 문의하기
+                    </button>
+                  </Link>
+                </div>
+              </div>
+              <div className="absolute bg-black opacity-50 h-full w-full" />
+              <div className="gradation bg-gradient-to-b from-black absolute w-full top-0 h-36 z-50" />
+            </div>
           </div>
-        </div>
-
-        {/* Right: 회사 소개 */}
-        <div className="w-full space-y-6">
-          <h2 className="text-4xl font-extrabold">About Us</h2>
-          <p className="text-lg leading-relaxed">
-            모두의 레퍼런스는 기획부터 촬영, 편집까지 모든 과정을 책임지는
-            영상 제작 전문 회사입니다.<br />
-            최신 장비와 크리에이티브 팀이 함께 협업하여 고객님의 이야기를
-            가장 효과적으로 전달합니다.
-          </p>
-          <p className="text-lg font-semibold">항상 최선을 다하겠습니다.</p>
         </div>
       </motion.div>
     </section>

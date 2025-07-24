@@ -36,7 +36,7 @@ export default function PortfolioMain({ items }: PortfolioMainProps) {
           고퀄리티 결과물을 제공합니다.
         </p>
         <Link href="/works">
-          <button className="px-4 py-2 bg-maincolor-500 text-white hover:bg-maincolor-300 transition">
+          <button className="px-4 py-2 bg-maincolor-500 text-white hover:bg-maincolor-300 cursor-pointer transition">
             전체 포트폴리오 보기
           </button>
         </Link>
@@ -59,7 +59,7 @@ export default function PortfolioMain({ items }: PortfolioMainProps) {
                 <img
                   src={w.thumbnailUrl}
                   alt={w.title}
-                  className="w-full h-45 object-cover"
+                  className="w-full aspect-[9/5] object-cover"
                 />
               </div>
             ))}
@@ -74,7 +74,7 @@ export default function PortfolioMain({ items }: PortfolioMainProps) {
                 <img
                   src={w.thumbnailUrl}
                   alt={w.title}
-                  className="w-full h-45 object-cover"
+                  className="w-full aspect-[9/5] object-cover"
                 />
               </div>
             ))}

@@ -121,8 +121,10 @@ export default function AdminWorksPage() {
                             <p className="font-semibold text-lg pr-4">{w.title}</p>
                             <p className="text-sm">{w.category}</p>
                           </div>
+                          {/* client, year 필요 X 사장님 요청사항
                           <p className="text-sm text-gray-600">Client: {w.client}</p>
                           <p className="text-sm text-gray-600">Year: {w.year}</p>
+                          */}
                           <p className="text-xs text-gray-500">{w.date}</p>
                         </div>
                       </div>

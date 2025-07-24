@@ -30,25 +30,21 @@ export default function AboutPage() {
       img: "/images/process1.jpg",
       title: "1. 발상 & 기획",
       desc: "고객 니즈를 반영한 크리에이티브 콘셉트를 수립합니다.",
-      icon: "💡",
     },
     {
       img: "/images/process2.jpg",
       title: "2. 스토리보드 작성",
       desc: "각 장면을 시각화하여 촬영 플랜을 완성합니다.",
-      icon: "📝",
     },
     {
       img: "/images/process3.jpg",
       title: "3. 본 촬영",
       desc: "최신 장비와 프로 팀으로 현장 분위기를 살립니다.",
-      icon: "🎥",
     },
     {
       img: "/images/process4.jpg",
       title: "4. 편집 & 후반작업",
       desc: "색보정, 모션 그래픽, 사운드를 더해 최종 완성합니다.",
-      icon: "✂️",
     },
   ];
 
@@ -56,7 +52,7 @@ export default function AboutPage() {
     <main className="bg-black text-white">
       {/* Hero section with darkened background image */}
       <section
-        className="h-screen relative bg-cover bg-center"
+        className="h-[calc(100vh-74px)] relative bg-cover bg-center"
         style={{ backgroundImage: "url('/images/team-group.png')" }}
       >
         {/* Dark overlay */}
@@ -82,42 +78,8 @@ export default function AboutPage() {
         </motion.div>
       </section>
 
-      {/* Founder section: scroll-triggered */}
-      <section className="py-20 px-4 mx-30">
-        <motion.div
-          className=" mx-auto flex flex-col md:flex-row items-center gap-12"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ amount: 0.2, once: false }}
-          variants={quoteVariants}
-          transition={{ duration: 0.6 }}
-        >
-          {/* Left: 대표 사진 */}
-          <div className="ms-30 me-30 w-200 relative h-150 overflow-hidden shadow-lg">
-            <Image
-              src="/images/CEO.jpg"
-              alt="대표 이미지"
-              fill
-              style={{ objectFit: "cover" }}
-            />
-          </div>
-
-          {/* Right: 대표 한마디 */}
-          <div className="w-full space-y-4 me-30">
-            <h2 className="text-3xl font-bold">Founder’s Message</h2>
-            <p className="text-lg leading-relaxed">
-              “우리는 항상 고객의 눈높이에서 생각합니다. 최선을 다해, 단 한 번의
-              기회도 놓치지 않는 꼼꼼함으로 여러분의 비전을 현실로 만들어
-              가겠습니다.”
-              <br />
-              <br /> - 대표 홍길동 -
-            </p>
-          </div>
-        </motion.div>
-      </section>
-
       {/* Process Section */}
-      <section className="py-20 px-16 pb-50">
+      <section className="py-60 px-16 pb-60">
         <div className="max-w-4xl mx-auto text-center mb-12">
           <motion.h2
             className="text-4xl font-extrabold text-white"
@@ -137,7 +99,7 @@ export default function AboutPage() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 ">
           {PROCESS_STEPS.map((step, idx) => (
             <motion.div
               key={step.title}

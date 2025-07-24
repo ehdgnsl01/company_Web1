@@ -62,21 +62,23 @@ export default function AllCategory({ works }: AllCategoryProps) {
                       <img
                         src={w.thumbnailUrl}
                         alt={w.title}
-                        className="w-full h-64 object-cover transform transition-all duration-500 ease-in-out group-hover:scale-105 group-hover:blur-sm"
+                        className="w-full aspect-[9/5] object-cover transform transition-all duration-500 ease-in-out group-hover:scale-105 group-hover:blur-sm"
                       />
                       {/* 배경 오버레이 */}
                       <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-30 transition-opacity duration-300 z-10" />
                       {/* 텍스트 레이어 */}
-                      <div className="absolute left-4 bottom-4 z-20 max-w-[80%] opacity-0 group-hover:opacity-100 transition-opacity duration-300 overflow-hidden">
+                      <div className="absolute top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%] z-20 max-w-[80%] opacity-0 group-hover:opacity-100 transition-opacity duration-300 overflow-hidden">
                         <h2
-                          className="text-2xl font-bold text-white truncate"
+                          className="text-2xl font-semibold text-white truncate"
                           title={w.title}
                         >
                           {w.title}
                         </h2>
+                        {/* Client 필요 X 사장님 요청사항
                         <p className="mt-1 text-sm font-light text-gray-200 truncate">
                           {w.client}
                         </p>
+                        */}
                       </div>
                     </div>
                   </Link>

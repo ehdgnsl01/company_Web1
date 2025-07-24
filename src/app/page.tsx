@@ -31,33 +31,15 @@ export default function HomePage() {
   return (
     <main className="bg-black text-white">
       {/* Hero Section */}
-      <section className="relative w-full h-screen overflow-hidden">
+      <section className="w-full h-full overflow-hidden">
         <video
           src={videoUrl}
           autoPlay
           muted
           loop
           playsInline
-          className="absolute top-0 left-0 w-full h-full object-cover"
+          className="w-full h-full object-cover"
         />
-        <div className="relative flex flex-col items-left justify-center h-full">
-          <div className="z-10 px-50">
-            <div className="\pl-5">
-              <h1 className="text-5xl font-bold mb-10">
-                모두의 레퍼런스는 브랜드의 이야기를
-                <br /> 시각적으로 아름답게 전합니다.
-              </h1>
-              <p className="text-3xl uppercase mb-10">
-                All Reference tells the brand's story <br />
-                visually and beautifully.
-              </p>
-            </div>
-            <button className="cursor-pointer px-8 py-4 border hover:scale-105 transition ">
-              지금 문의하기
-            </button>
-          </div>
-          <div className="absolute bg-black opacity-30 h-full w-full"></div>
-        </div>
       </section>
 
       <OurService />
@@ -71,7 +53,7 @@ export default function HomePage() {
             영상 제작에 대한 문의나 견적 요청은 언제든지 환영합니다.
           </p>
           <Link href="/contact">
-            <button className="px-8 py-2 bg-maincolor-500 hover:bg-maincolor-300 transition">
+            <button className="px-8 py-2 border cursor-pointer hover:scale-105 transition">
               지금 문의하기
             </button>
           </Link>

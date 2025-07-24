@@ -134,7 +134,7 @@ export default function NewWorkPage() {
           className="w-full border px-3 py-2 rounded"
         />
       </div>
-
+      {/* Client, Year 필요X (사장님 요청사항)
       <div>
         <label className="block mb-1">Client</label>
         <input
@@ -157,7 +157,7 @@ export default function NewWorkPage() {
           className="w-full border px-3 py-2 rounded"
         />
       </div>
-
+ */}
       <div>
         <label className="block mb-1">썸네일 이미지</label>
         <input

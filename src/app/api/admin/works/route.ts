@@ -25,7 +25,9 @@ export async function GET(req: NextRequest) {
 // POST /api/admin/works  → 새 포트폴리오 추가 (dynamic order)
 export async function POST(req: NextRequest) {
   try {
-    const { title, youtubeUrl, client, thumbnailUrl = "", year, category } = await req.json();
+    // Client, Year 필요X (사장님 요청사항)
+    //const { title, youtubeUrl, client, thumbnailUrl = "", year, category } = await req.json();
+    const { title, youtubeUrl, thumbnailUrl = "", category } = await req.json();
     const nowStr = formatKRDate(new Date());
 
     // 1) 기존 문서 order 모두 +1
@@ -41,9 +43,9 @@ export async function POST(req: NextRequest) {
     batch.set(newRef, {
       title,
       youtubeUrl,
-      client,
+      //client,
+      //year,
       thumbnailUrl,
-      year,
       date: nowStr,
       order: 0,
       category,

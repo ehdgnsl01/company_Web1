@@ -35,14 +35,16 @@ export async function PUT(
 ) {
   const { id } = await params;
   try {
-    const { title, youtubeUrl, client, thumbnailUrl = "", year, category } = await req.json();
+    // Client, Year 필요X (사장님 요청사항)
+    //const { title, youtubeUrl, client, thumbnailUrl = "", year, category } = await req.json();
+    const { title, youtubeUrl, thumbnailUrl = "", category } = await req.json();
     const nowStr = formatKRDate(new Date());
     await adminDb.collection("works").doc(id).update({
       title,
       youtubeUrl,
-      client,
+      //client,
+      //year,
       thumbnailUrl,
-      year,
       date: nowStr,
       category,
     });
