@@ -63,18 +63,26 @@ export default function RootLayout({
 }) {
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "Organization",
+    "@type": "ProfessionalService",
     name: "모두의 레퍼런스",
     url: siteUrl,
-    logo: `${siteUrl}/favicon.ico`,
     contactPoint: {
       "@type": "ContactPoint",
       telephone: "02-1234-5678",
       contactType: "customer service",
       areaServed: "KR",
-      availableLanguage: ["Korean"],
+      availableLanguage: ["Korean"]
+    },
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: "서울특별시 강남구 테헤란로 123",
+      addressLocality: "강남구",
+      addressRegion: "서울특별시",
+      postalCode: "06168",
+      addressCountry: "KR"
     },
   };
+
 
   return (
     <html lang="ko">
