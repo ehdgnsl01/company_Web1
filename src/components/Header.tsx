@@ -39,13 +39,12 @@ export default function Header() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 bg-black shadow z-50 h-20 transform transition-transform duration-300 ${
-        hidden ? "-translate-y-full" : "translate-y-0"
-      }`}
+      className={`fixed top-0 left-0 right-0 bg-black shadow z-50 h-20 transform transition-transform duration-300 ${hidden ? "-translate-y-full" : "translate-y-0"
+        }`}
     >
       <div className="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
         {/* 로고 */}
-        <Link href="/" className="text-maincolor-500">
+        <Link href="/" className="text-maincolor-500" >
           <Logo className="fill-current" />
         </Link>
 
@@ -58,9 +57,8 @@ export default function Header() {
                 <li key={href}>
                   <Link
                     href={href}
-                    className={`text-lg font-light font-bold transition-colors duration-300 cursor-pointer ${
-                      isActive ? "text-white" : "text-gray-400 hover:text-white"
-                    } active:text-maincolor-300`}
+                    className={`text-lg font-light font-bold transition-colors duration-300 cursor-pointer ${isActive ? "text-white" : "text-gray-400 hover:text-white"
+                      } active:text-maincolor-300`}
                   >
                     {label}
                   </Link>
