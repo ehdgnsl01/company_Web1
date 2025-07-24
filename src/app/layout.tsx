@@ -30,7 +30,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "모두의 레퍼런스 – 영상 제작 전문 회사",
     description:
-      "기업 홍보, 제품 소개, 이벤트 영상까지—모두의 레퍼런스가 고객의 이야기를 영상으로 완성합니다.",
+      "모두의 레퍼런스가 고객의 이야기를 영상으로 완성합니다.",
     url: siteUrl,
     siteName: "모두의 레퍼런스",
     locale: "ko_KR",
@@ -49,7 +49,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "모두의 레퍼런스 – 영상 제작 전문 회사",
     description:
-      "기업 홍보, 제품 소개, 이벤트 영상까지—모두의 레퍼런스가 고객의 이야기를 영상으로 완성합니다.",
+      "모두의 레퍼런스가 고객의 이야기를 영상으로 완성합니다.",
     images: [ogImage],
   },
 };
