@@ -29,8 +29,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "모두의 레퍼런스 – 영상 제작 전문 회사",
-    description:
-      "모두의 레퍼런스가 고객의 이야기를 영상으로 완성합니다.",
+    description: "모두의 레퍼런스가 고객의 이야기를 영상으로 완성합니다.",
     url: siteUrl,
     siteName: "모두의 레퍼런스",
     locale: "ko_KR",
@@ -48,8 +47,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "모두의 레퍼런스 – 영상 제작 전문 회사",
-    description:
-      "모두의 레퍼런스가 고객의 이야기를 영상으로 완성합니다.",
+    description: "모두의 레퍼런스가 고객의 이야기를 영상으로 완성합니다.",
     images: [ogImage],
   },
 };
@@ -71,7 +69,7 @@ export default function RootLayout({
       telephone: "02-1234-5678",
       contactType: "customer service",
       areaServed: "KR",
-      availableLanguage: ["Korean"]
+      availableLanguage: ["Korean"],
     },
     address: {
       "@type": "PostalAddress",
@@ -79,14 +77,14 @@ export default function RootLayout({
       addressLocality: "강남구",
       addressRegion: "서울특별시",
       postalCode: "06168",
-      addressCountry: "KR"
+      addressCountry: "KR",
     },
   };
-
 
   return (
     <html lang="ko">
       <head>
+        <link rel="icon" href="/favicon.ico" />
         <meta
           name="naver-site-verification"
           content="eeeb1083e49ada707859e97d1ed303ede947f417"
