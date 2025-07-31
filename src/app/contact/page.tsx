@@ -30,7 +30,7 @@ export default function ContactPage() {
             </div>
             <div>
               <Link
-                href="https://www.youtube.com/your-channel-id"
+                href="https://www.youtube.com/@%EB%AA%A8%EB%91%90%EC%9D%98%EB%A0%88%ED%8D%BC%EB%9F%B0%EC%8A%A4"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-block w-16 h-8 -translate-x-2"
