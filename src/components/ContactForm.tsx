@@ -30,21 +30,25 @@ export default function ContactForm() {
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitting(true);
-    const scriptURL =
-      "https://script.google.com/macros/s/AKfycbxPfFBH6PDJWOMsb7Ewr3HE5e5hXd1QvTOElX4cxsC50trCif2zTS4n9vZn-w_z-d4K/exec"; //본인 시트의 웹앱 url
-
+    const scriptURL = process.env.NEXT_PUBLIC_GOOGLE_SCRIPT_URL!;
     const sheetForm = document.getElementById(
       "submit-to-google-sheet"
     ) as HTMLFormElement;
+
     try {
-      fetch(scriptURL, { method: "POST", body: new FormData(sheetForm) })
-        .then((response) => {
-          console.log("Success!", response);
-          sheetForm.reset();
-          setForm({ name: "", email: "", phone: "", message: "" });
-          alert("전송을 성공하였습니다.");
-        })
-        .catch((error) => console.error("Error!", error.message));
+      const res = await fetch(scriptURL, {
+        method: "POST",
+        body: new FormData(sheetForm),
+      });
+
+      if (!res.ok) {
+        throw new Error(`HTTP error! status: ${res.status}`);
+      }
+
+      console.log("Success!", res);
+      sheetForm.reset();
+      setForm({ name: "", email: "", phone: "", message: "" });
+      alert("전송을 성공하였습니다.");
     } catch (error: any) {
       console.error("Error!", error);
       alert("전송 중 오류가 발생했습니다.");

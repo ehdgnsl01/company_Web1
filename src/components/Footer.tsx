@@ -16,7 +16,7 @@ export default function Footer() {
         <div className="space-y-1 text-center md:text-left">
           <p className="font-semibold">Contact</p>
           <p>전화: 010-3350-3725</p>
-          <p>Email: info@allref.com</p>
+          <p>Email: allref0214@gmail.com</p>
         </div>
 
         {/* 주소 */}

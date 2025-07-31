@@ -26,11 +26,11 @@ export default function About() {
         <div className="w-full">
           <div className="relative w-full h-220 overflow-hidden shadow-lg">
             <Image
-              src="/images/team.jpg" // public/images/team.jpg
+              src="/images/team1.jpg" // public/images/team.jpg
               alt="제작진"
               fill
               style={{ objectFit: "cover" }}
-              className="blur-[2px]"
+              className=""
             />
             <div className="relative flex flex-col items-left justify-center h-full">
               <div className="z-10 px-50">

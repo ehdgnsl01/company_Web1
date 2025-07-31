@@ -21,7 +21,7 @@ export default function ContactPage() {
             </div>
             <div>
               <h3 className="font-semibold">이메일</h3>
-              <p>info@allref.com</p>
+              <p>allref0214@gmail.com</p>
             </div>
             <div>
               <h3 className="font-semibold">주소</h3>
