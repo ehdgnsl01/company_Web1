@@ -1,8 +1,7 @@
 export const CATEGORIES = [
-  { value: "category1", label: "Campaign" },
-  { value: "category2", label: "분류2" },
-  { value: "category3", label: "분류3" },
-  { value: "category4", label: "분류4" },
+  { value: "category1", label: "Commercial" },
+  { value: "category2", label: "Motion Graphic" },
+  { value: "category3", label: "Youtube" },
 ] as const;
 
 export type CategoryValue = (typeof CATEGORIES)[number]["value"];

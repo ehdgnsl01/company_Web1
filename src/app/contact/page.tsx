@@ -17,15 +17,15 @@ export default function ContactPage() {
           <div className="space-y-4 flex flex-col gap-10">
             <div>
               <h3 className="font-semibold">전화번호</h3>
-              <p>02-1234-5678</p>
+              <p>010-3350-3725</p>
             </div>
             <div>
               <h3 className="font-semibold">이메일</h3>
-              <p>info@allref.co.kr</p>
+              <p>info@allref.com</p>
             </div>
             <div>
               <h3 className="font-semibold">주소</h3>
-              <p>서울특별시 강남구 테헤란로 123, 10층</p>
+              <p>서울특별시 노원구 노해로 491, 4층</p>
             </div>
           </div>
         </div>

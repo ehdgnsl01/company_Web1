@@ -53,7 +53,7 @@ export default function AboutPage() {
       {/* Hero section with darkened background image */}
       <section
         className="h-[calc(100vh-74px)] relative bg-cover bg-center"
-        style={{ backgroundImage: "url('/images/team-group.png')" }}
+        style={{ backgroundImage: "url('/images/about_main.jpg')" }}
       >
         {/* Dark overlay */}
         <div className="absolute inset-0 bg-black opacity-60" />

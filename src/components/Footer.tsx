@@ -15,21 +15,21 @@ export default function Footer() {
         {/* 연락처 */}
         <div className="space-y-1 text-center md:text-left">
           <p className="font-semibold">Contact</p>
-          <p>전화: 02-1234-5678</p>
+          <p>전화: 010-3350-3725</p>
           <p>Email: info@allref.com</p>
         </div>
 
         {/* 주소 */}
         <div className="space-y-1 text-center md:text-left">
           <p className="font-semibold">Address</p>
-          <p>서울특별시 강남구 테헤란로 123, 4층</p>
+          <p>서울특별시 노원구 노해로 491, 4층</p>
         </div>
 
         {/* 기업 정보 */}
         <div className="space-y-1 text-center md:text-left">
           <p className="font-semibold">Company</p>
-          <p>사업자번호: 123-45-67890</p>
-          <p>대표: 홍길동</p>
+          <p>사업자번호: 462-31-00798</p>
+          <p>대표: 유창연</p>
         </div>
       </div>
 

@@ -12,20 +12,41 @@ export default function ContactForm() {
   });
   const [submitting, setSubmitting] = useState(false);
 
-  const onChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const onChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const setCurrentTime = () => {
+    const TIME_ZONE = 1000 * 60 * 60 * 9;
+    const resultTime = new Date(new Date().getTime() + TIME_ZONE)
+      .toISOString()
+      .replace("T", " ")
+      .slice(0, -5);
+    return String(resultTime);
   };
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitting(true);
+    const scriptURL =
+      "https://script.google.com/macros/s/AKfycbxPfFBH6PDJWOMsb7Ewr3HE5e5hXd1QvTOElX4cxsC50trCif2zTS4n9vZn-w_z-d4K/exec"; //본인 시트의 웹앱 url
+
+    const sheetForm = document.getElementById(
+      "submit-to-google-sheet"
+    ) as HTMLFormElement;
     try {
-      // TODO: 실제 API endpoint로 전송 로직 추가
-      console.log("Contact form data:", form);
-      alert("문의가 성공적으로 전송되었습니다!");
-      setForm({ name: "", email: "", phone: "", message: "" });
-    } catch (err) {
-      console.error(err);
+      fetch(scriptURL, { method: "POST", body: new FormData(sheetForm) })
+        .then((response) => {
+          console.log("Success!", response);
+          sheetForm.reset();
+          setForm({ name: "", email: "", phone: "", message: "" });
+          alert("전송을 성공하였습니다.");
+        })
+        .catch((error) => console.error("Error!", error.message));
+    } catch (error: any) {
+      console.error("Error!", error);
       alert("전송 중 오류가 발생했습니다.");
     } finally {
       setSubmitting(false);
@@ -33,7 +54,11 @@ export default function ContactForm() {
   };
 
   return (
-    <form onSubmit={onSubmit} className="mx-20 space-y-6 p-6 flex flex-col">
+    <form
+      id="submit-to-google-sheet"
+      onSubmit={onSubmit}
+      className="mx-20 space-y-6 p-6 flex flex-col"
+    >
       <h2 className="text-4xl font-bold text-left">Contact Us</h2>
 
       <div>
@@ -48,6 +73,12 @@ export default function ContactForm() {
           onChange={onChange}
           required
           className="w-full border-b px-3 py-2 focus:outline-none"
+        />
+        <input
+          className="hidden"
+          name="time"
+          defaultValue={setCurrentTime()}
+          required
         />
       </div>
 

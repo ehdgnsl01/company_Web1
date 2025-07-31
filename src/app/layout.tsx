@@ -11,9 +11,9 @@ const siteUrl =
 const ogImage = `${siteUrl}/images/twitter_card.png`;
 
 export const metadata: Metadata = {
-  title: "모두의 레퍼런스 – 영상 제작 전문 회사",
+  title: "모두의 레퍼런스",
   description:
-    "모두의 레퍼런스는 기업 홍보 영상, 제품 소개 영상, 이벤트 영상 등 맞춤형 영상 제작 서비스를 제공합니다.",
+    "TV 광고, 바이럴 필름, 모션그래픽, 기업 브랜드 필름을 기획, 제작",
   keywords: [
     "영상 제작",
     "기업 홍보 영상",
@@ -22,14 +22,19 @@ export const metadata: Metadata = {
     "영상 편집",
     "모두의 레퍼런스",
     "all reference",
+    "모션그래픽",
+    "기업 브랜드 필름",
+    "TV 광고",
+    "바이럴 필름",
   ],
   robots: "index, follow",
   icons: {
     icon: "/favicon.ico",
   },
   openGraph: {
-    title: "모두의 레퍼런스 – 영상 제작 전문 회사",
-    description: "모두의 레퍼런스가 고객의 이야기를 영상으로 완성합니다.",
+    title: "모두의 레퍼런스",
+    description:
+      "TV 광고, 바이럴 필름, 모션그래픽, 기업 브랜드 필름을 기획, 제작",
     url: siteUrl,
     siteName: "모두의 레퍼런스",
     locale: "ko_KR",
@@ -46,8 +51,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "모두의 레퍼런스 – 영상 제작 전문 회사",
-    description: "모두의 레퍼런스가 고객의 이야기를 영상으로 완성합니다.",
+    title: "모두의 레퍼런스",
+    description:
+      "TV 광고, 바이럴 필름, 모션그래픽, 기업 브랜드 필름을 기획, 제작",
     images: [ogImage],
   },
 };
@@ -66,17 +72,17 @@ export default function RootLayout({
     url: siteUrl,
     contactPoint: {
       "@type": "ContactPoint",
-      telephone: "02-1234-5678",
+      telephone: "010-3350-3725",
       contactType: "customer service",
       areaServed: "KR",
       availableLanguage: ["Korean"],
     },
     address: {
       "@type": "PostalAddress",
-      streetAddress: "서울특별시 강남구 테헤란로 123",
-      addressLocality: "강남구",
+      streetAddress: "서울특별시 노원구 노해로 491, 4층",
+      addressLocality: "노원구",
       addressRegion: "서울특별시",
-      postalCode: "06168",
+      postalCode: "01709",
       addressCountry: "KR",
     },
   };
@@ -87,7 +93,7 @@ export default function RootLayout({
         <link rel="icon" href="/favicon.ico" />
         <meta
           name="naver-site-verification"
-          content="eeeb1083e49ada707859e97d1ed303ede947f417"
+          content="ead00e2bc84ea3acec4bb1c2fc08348598690d10"
         />
         <meta
           name="google-site-verification"

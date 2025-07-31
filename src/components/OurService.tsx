@@ -30,6 +30,7 @@ export default function About() {
               alt="제작진"
               fill
               style={{ objectFit: "cover" }}
+              className="blur-[2px]"
             />
             <div className="relative flex flex-col items-left justify-center h-full">
               <div className="z-10 px-50">
