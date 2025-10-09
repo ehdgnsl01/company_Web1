@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://www.allreference.co.kr/sitemap.xml
+Sitemap: https://www.allreference.co.kr/rss.xml
