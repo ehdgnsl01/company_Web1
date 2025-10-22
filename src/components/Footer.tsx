@@ -15,7 +15,6 @@ export default function Footer() {
         {/* 연락처 */}
         <div className="space-y-1 text-center md:text-left">
           <p className="font-semibold">Contact</p>
-          <p>전화: 010-3350-3725</p>
           <p>Email: allref0214@gmail.com</p>
         </div>
 
@@ -29,7 +28,6 @@ export default function Footer() {
         <div className="space-y-1 text-center md:text-left">
           <p className="font-semibold">Company</p>
           <p>사업자번호: 462-31-00798</p>
-          <p>대표: 유창연</p>
         </div>
       </div>
 

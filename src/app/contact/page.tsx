@@ -17,10 +17,6 @@ export default function ContactPage() {
           <h2 className="text-2xl font-bold mb-10">Contact Information</h2>
           <div className="space-y-4 flex flex-col gap-10">
             <div>
-              <h3 className="font-semibold">전화번호</h3>
-              <p>010-3350-3725</p>
-            </div>
-            <div>
               <h3 className="font-semibold">이메일</h3>
               <p>allref0214@gmail.com</p>
             </div>
